@@ -2,7 +2,7 @@
 YTho (*why though*) is a golfing language written as part of the Abstract Machines course at Vienna University of Technology. One statement is usually composed of a selector and an operator. The selector first selects part of the input and then the operator is applied on the selected elements.
 
 ## Special characters
-* _
+* \_
   * Only use as first character
   * Enable debug mode 
 
@@ -59,11 +59,11 @@ YTho (*why though*) is a golfing language written as part of the Abstract Machin
   * converts each element to its binary representation
 * h
   * converts each element to its hex representation
-* +
+* \+
   * add/concat
-* - 
+* \- 
   * subtract
-* *
+* \*
   * multiply
 * /
   * divide
