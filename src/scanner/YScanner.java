@@ -3,6 +3,8 @@ package scanner;
 import exception.YException;
 import interpreter.*;
 
+import java.util.Arrays;
+
 /**
  * Created by Adrian on 12-Apr-17.
  */
@@ -41,15 +43,7 @@ public class YScanner {
                 Selector selector = Selector.from(a[i]);
                 i++;
                 if (controlSelector != null) {
-                    Selector[] followedBy = controlSelector.getFollowedBy();
-                    boolean found = false;
-                    for (Selector possibility : followedBy) {
-                        if (possibility == selector) {
-                            found = true;
-                            break;
-                        }
-                    }
-                    if (!found) {
+                    if (!Arrays.asList(controlSelector.getFollowedBy()).contains(selector)) {
                         throw new YException("Syntax error. Control Selector followed by unallowed Selector at index [" + i + "] in \"" + program + "\"");
                     }
                 }
