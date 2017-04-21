@@ -1,7 +1,7 @@
 package scanner;
 
 import exception.YException;
-import interpreter.Command;
+import interpreter.*;
 
 /**
  * Created by Adrian on 12-Apr-17.
@@ -14,12 +14,50 @@ public class YScanner {
         programCounter = 0;
     }
 
-    public YScanner(String program) throws YException {
+    public YScanner(String program) {
         this();
-        if (program.length() % 2 != 0) {
-            throw new YException("Syntax error. Program length incorrect.");
-        }
+        checkSyntax(program);
         this.program = program;
+    }
+
+    private void checkSyntax(String program) {
+        char a[] = program.toCharArray();
+        for (int i = 0; i < a.length; i++) {
+            try {
+                Special special = Special.from(a[i]);
+                continue;
+            } catch (Exception e) {
+                //swallow this - this only means that current is no Special
+            }
+            //current is no Special
+            ControlSelector controlSelector = null;
+            try {
+                controlSelector = ControlSelector.from(a[i]);
+                i++;
+            } catch (Exception e) {
+                //swallow this - this only means that current is no ControlSelector
+            }
+            try {
+                Selector selector = Selector.from(a[i]);
+                i++;
+                if (controlSelector != null) {
+                    Selector[] followedBy = controlSelector.getFollowedBy();
+                    boolean found = false;
+                    for (Selector possibility : followedBy) {
+                        if (possibility == selector) {
+                            found = true;
+                            break;
+                        }
+                    }
+                    if (!found) {
+                        throw new YException("Syntax error. Control Selector followed by unallowed Selector at index [" + i + "] in \"" + program + "\"");
+                    }
+                }
+                Operators operators = Operators.from(a[i]);
+            } catch (IllegalArgumentException o_O) {
+                throw new YException("Syntax error at index [" + i + "] in \"" + program + "\"");
+            }
+        }
     }
 
     public Command getNextCommand() {
