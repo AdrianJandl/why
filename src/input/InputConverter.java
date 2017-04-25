@@ -7,7 +7,7 @@ import storage.StringStorage;
 /**
  * Created by Adrian on 12-Apr-17.
  */
-public class Input {
+public class InputConverter {
 
     public Storage process(String input) {
         String[] split = input.split(",");

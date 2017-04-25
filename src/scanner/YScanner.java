@@ -47,7 +47,7 @@ public class YScanner {
                         throw new YException("Syntax error. Control Selector followed by unallowed Selector at index [" + i + "] in \"" + program + "\"");
                     }
                 }
-                Operators operators = Operators.from(a[i]);
+                Operator operators = Operator.from(a[i]);
             } catch (IllegalArgumentException o_O) {
                 throw new YException("Syntax error at index [" + i + "] in \"" + program + "\"");
             }
@@ -55,7 +55,7 @@ public class YScanner {
     }
 
     public Command getNextCommand() {
-        Command command = new Command(program.charAt(programCounter), program.charAt(programCounter + 1));
+        Command command = new Command(Selector.from(program.charAt(programCounter)), Operator.from(program.charAt(programCounter + 1)));
         programCounter += 2;
         return command;
     }

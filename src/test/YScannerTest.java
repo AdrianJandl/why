@@ -2,66 +2,87 @@ package test;
 
 import exception.YException;
 import interpreter.Command;
-import org.testng.annotations.Test;
+import interpreter.Operator;
+import interpreter.Selector;
+import org.junit.jupiter.api.Test;
 import scanner.YScanner;
 
-import static org.testng.Assert.assertTrue;
+import java.nio.channels.SeekableByteChannel;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * Created by Adrian on 12-Apr-17.
  */
-public class YScannerTest {
-
-    @Test(expectedExceptions = YException.class)
-    public void testConstructor() {
-        YScanner error = new YScanner("wasde");
+class YScannerTest {
+    @Test
+    void testGetNextCommand1() throws Exception {
     }
 
     @Test
-    public void testGetNextCommand() {
+    void testHasNext() throws Exception {
+    }
+
+    @Test
+    void testConstructor() {
+        assertThrows(YException.class, () -> {
+            YScanner error = new YScanner("wasde");
+        });
+    }
+
+    @Test
+    void testGetNextCommand() {
         YScanner x = new YScanner("oSeI");
         Command first = x.getNextCommand();
-        assertTrue(first.getControl().equals('o'));
-        assertTrue(first.getOperator().equals('S'));
+        assertEquals(Selector.o, first.getSelector());
+        assertEquals(Operator.S, first.getOperator());
         Command second = x.getNextCommand();
-        assertTrue(second.getControl().equals('e'));
-        assertTrue(second.getOperator().equals('I'));
-    }
-
-    @Test(expectedExceptions = YException.class)
-    public void strictFollowedByForbiddenSelector() {
-        String input = "_seI";
-        YScanner yScanner = new YScanner(input);
+        assertEquals(Selector.e, second.getSelector());
+        assertEquals(Operator.I, second.getOperator());
     }
 
     @Test
-    public void strictFollowedByAllowed() {
+    void strictFollowedByForbiddenSelector() {
+        String input = "_seI";
+        assertThrows(YException.class, () -> {
+            YScanner yScanner = new YScanner(input);
+        });
+    }
+
+    @Test
+    void strictFollowedByAllowed() {
         String input = "_s3I";
         YScanner yScanner = new YScanner(input);
     }
 
     @Test
-    public void lengthShorterThanFollowedByAllowed() {
+    void lengthShorterThanFollowedByAllowed() {
         String input = "l3S";
         YScanner yScanner = new YScanner(input);
     }
 
-    @Test(expectedExceptions = YException.class)
-    public void lengthShorterThanFollowedByForbidden() {
+    @Test
+    void lengthShorterThanFollowedByForbidden() {
         String input = "lnS";
-        YScanner yScanner = new YScanner(input);
+        assertThrows(YException.class, () -> {
+            YScanner yScanner = new YScanner(input);
+        });
     }
 
     @Test
-    public void lengthLongerThanFollowedByAllowed() {
+    void lengthLongerThanFollowedByAllowed() {
         String input = "L3S";
         YScanner yScanner = new YScanner(input);
     }
 
-    @Test(expectedExceptions = YException.class)
-    public void lengthLongerThanFollowedByForbidden() {
+    @Test
+    void lengthLongerThanFollowedByForbidden() {
         String input = "LNS";
-        YScanner yScanner = new YScanner(input);
+        assertThrows(YException.class, () -> {
+            YScanner yScanner = new YScanner(input);
+        });
     }
 
 }

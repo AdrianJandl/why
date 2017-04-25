@@ -1,35 +1,30 @@
 package interpreter;
 
-import exception.YException;
-
-import java.util.function.Predicate;
-
 /**
  * Created by Adrian on 12-Apr-17.
  */
 public class Command {
-    Character control;
-    Character operator;
+    private Selector selector;
+    private Operator operator;
 
-    public Command(Character control, Character operator) {
-        this.control = control;
+    public Command(Selector selector, Operator operator) {
+        this.selector = selector;
         this.operator = operator;
     }
 
-    public Character getControl() {
-        return control;
+    public Selector getSelector() {
+        return selector;
     }
 
-    public Character getOperator() {
+    public Operator getOperator() {
         return operator;
     }
 
     @Override
     public String toString() {
-        return "interpreter.Command{" +
-                "control=" + control +
+        return "Command{" +
+                "selector=" + selector +
                 ", operator=" + operator +
                 '}';
     }
-
 }
