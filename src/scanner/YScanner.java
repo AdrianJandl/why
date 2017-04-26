@@ -55,6 +55,15 @@ public class YScanner {
     }
 
     public Command getNextCommand() {
+        if (programCounter == 0) {
+            try {
+                Special special = Special.from(program.charAt(programCounter));
+                programCounter++;
+                return new Command(null, null); //TODO this definitely needs a fix lmao
+            } catch (IllegalArgumentException iae) {
+                //swallow this - this only means that the first character is no Special
+            }
+        }
         Command command = new Command(Selector.from(program.charAt(programCounter)), Operator.from(program.charAt(programCounter + 1)));
         programCounter += 2;
         return command;

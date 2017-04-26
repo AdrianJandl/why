@@ -7,11 +7,8 @@ import interpreter.Selector;
 import org.junit.jupiter.api.Test;
 import scanner.YScanner;
 
-import java.nio.channels.SeekableByteChannel;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * Created by Adrian on 12-Apr-17.
@@ -44,8 +41,16 @@ class YScannerTest {
     }
 
     @Test
+    void testDebug() {
+        String input = "_eI";
+        YScanner yScanner = new YScanner(input);
+        assertEquals(new Command(null, null), yScanner.getNextCommand());
+        assertEquals(new Command(Selector.e, Operator.I), yScanner.getNextCommand());
+    }
+
+    @Test
     void strictFollowedByForbiddenSelector() {
-        String input = "_seI";
+        String input = "seI";
         assertThrows(YException.class, () -> {
             YScanner yScanner = new YScanner(input);
         });
@@ -53,7 +58,7 @@ class YScannerTest {
 
     @Test
     void strictFollowedByAllowed() {
-        String input = "_s3I";
+        String input = "s3I";
         YScanner yScanner = new YScanner(input);
     }
 

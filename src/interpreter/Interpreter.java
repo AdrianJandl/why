@@ -6,23 +6,28 @@ import scanner.YScanner;
 import storage.IntegerStorage;
 import storage.Storage;
 
+import java.util.function.Predicate;
+
 /**
  * Created by Adrian on 12-Apr-17.
  */
 public class Interpreter {
     private Storage storage;
+    private boolean debug;
 
     public Interpreter(YScanner yScanner, String input) {
         InputConverter inputConverter = new InputConverter();
         storage = inputConverter.process(input);
         while (yScanner.hasNext()) {
             Command next = yScanner.getNextCommand();
+            if (next.getSelector() == null && next.getOperator() == null) {
+                debug = true;
+                continue;
+            }
             switch (next.getSelector()) {
                 case o:
-                    doO(next.getOperator());
-                    break;
                 case e:
-                    doE(next.getOperator());
+                    doIndexPredicateOperator(next.getSelector().getPredicate(), next.getOperator());
                     break;
                 case n:
                 case p:
@@ -36,47 +41,34 @@ public class Interpreter {
                 case _7:
                 case _8:
                 case _9:
-                    doO(next.getOperator());
+                    doOperator(next.getSelector().getPredicate(), next.getOperator());
                     break;
                 default:
                     throw new YException("Unrecognized Control character");
+            }
+            if (debug) {
+                System.out.println(storage);
             }
         }
         System.out.println(storage);
     }
 
-    private void doE(Operator operator) {
-        for (int i = 0; i < storage.getStorage().length; i++) {
-            if (i % 2 == 0) {
-                doOperator(i, operator);
+    private void doIndexPredicateOperator(Predicate<Integer> predicate, Operator operator) {
+        IntegerStorage integerStorage = (IntegerStorage) storage;
+        for (int i = 0; i < integerStorage.getStorage().length; i++) {
+            if (predicate.test(i)) {
+                integerStorage.getStorage()[i] = (Integer) operator.getUnaryOperator().apply(integerStorage.getStorage()[i]);
             }
         }
     }
 
-    private void doO(Operator operator) {
-        for (int i = 0; i < storage.getStorage().length; i++) {
-            if (i % 2 != 0) {
-                doOperator(i, operator);
-            }
-        }
-    }
 
-    private void doOperator(int index, Operator operator) {
-        switch (operator) {
-            case S:
-                if (storage instanceof IntegerStorage) {
-                    IntegerStorage integerStorage = (IntegerStorage) storage;
-                    integerStorage.getStorage()[index] = integerStorage.getStorage()[index] * integerStorage.getStorage()[index];
-                }
-                break;
-            case I:
-                if (storage instanceof IntegerStorage) {
-                    IntegerStorage integerStorage = (IntegerStorage) storage;
-                    integerStorage.getStorage()[index]++;
-                }
-                break;
-            default:
-                throw new YException("Unrecognized Operator");
+    private void doOperator(Predicate<Integer> predicate, Operator operator) {
+        IntegerStorage integerStorage = (IntegerStorage) storage;
+        for (int i = 0; i < integerStorage.getStorage().length; i++) {
+            if (predicate.test(integerStorage.getStorage()[i])) {
+                integerStorage.getStorage()[i] = (Integer) operator.getUnaryOperator().apply(integerStorage.getStorage()[i]);
+            }
         }
     }
 

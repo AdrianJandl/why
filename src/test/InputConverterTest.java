@@ -2,6 +2,7 @@ package test;
 
 import input.InputConverter;
 import org.junit.jupiter.api.Test;
+import storage.IntegerStorage;
 import storage.Storage;
 import storage.StringStorage;
 
@@ -12,16 +13,28 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 /**
  * Created by Adrian on 12-Apr-17.
  */
-public class InputConverterTest {
+class InputConverterTest {
     @Test
-    public void testStringInput(){
+    void testStringInput() {
         InputConverter inputConverter = new InputConverter();
         Storage storage = inputConverter.process("1,2,a,b,cccc");
         assertTrue(storage instanceof StringStorage);
-        assertEquals(storage.getStorage()[0], "1");
-        assertEquals(storage.getStorage()[1], "2");
-        assertEquals(storage.getStorage()[2], "a");
-        assertEquals(storage.getStorage()[3], "b");
-        assertEquals(storage.getStorage()[4], "cccc");
+        assertEquals("1", storage.getStorage()[0]);
+        assertEquals("2", storage.getStorage()[1]);
+        assertEquals("a", storage.getStorage()[2]);
+        assertEquals("b", storage.getStorage()[3]);
+        assertEquals("cccc", storage.getStorage()[4]);
+    }
+
+    @Test
+    void testIntegerInput() {
+        InputConverter inputConverter = new InputConverter();
+        Storage storage = inputConverter.process("1,2,3,4");
+        assertTrue(storage instanceof IntegerStorage);
+        assertEquals(1, storage.getStorage()[0]);
+        assertEquals(2, storage.getStorage()[1]);
+        assertEquals(3, storage.getStorage()[2]);
+        assertEquals(4, storage.getStorage()[3]);
+        assertEquals(4, storage.getStorage().length);
     }
 }
