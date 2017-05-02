@@ -2,6 +2,7 @@ package interpreter;
 
 import exception.YException;
 
+import java.util.BitSet;
 import java.util.function.UnaryOperator;
 
 /**
@@ -31,15 +32,20 @@ public enum Operator {
             case l:
                 return s -> ((String) s).toLowerCase();
             case I:
-                return i -> ((Integer) i) + 1;
+                return i -> String.valueOf(Integer.parseInt(String.valueOf(i)) + 1);
+            case U:
+                return s -> ((String) s).toUpperCase();
+            case P:
+                return s -> isPalindrome(((String) s));
+            case r:
+                return s -> new StringBuilder(String.valueOf(s)).reverse().toString();
             case f:
+                return s -> ""; //FIXME do we change datatype from int to Double/BigDecimal?
             case b:
+                return s -> getBits(s);
             case c:
             case C:
             case h:
-            case P:
-            case r:
-            case U:
             case div:
             case mult:
             case pow:
@@ -48,5 +54,23 @@ public enum Operator {
             default:
                 throw new YException("METHOD STUB! \"" + this + "\" NOT YET IMPLEMENTED");
         }
+    }
+
+    private String getBits(Object s) {
+        try {
+            Integer myInt = Integer.parseInt(String.valueOf(s));
+            return Integer.toString(myInt, 2);
+        } catch (NumberFormatException e) {
+            return BitSet.valueOf(String.valueOf(s).getBytes()).toString();
+        }
+    }
+
+    private String isPalindrome(String s) {
+        for (int i = 0; i < s.length() / 2; i++) {
+            if (s.charAt(i) != s.charAt(s.length() - 1 - i)) {
+                return "false";
+            }
+        }
+        return "true";
     }
 }

@@ -27,7 +27,7 @@ class InputConverterTest {
     }
 
     @Test
-    void testIntegerInput() {
+    void testIntegerInput() {//FIXME how do we handle this?
         InputConverter inputConverter = new InputConverter();
         Storage storage = inputConverter.process("1,2,3,4");
         assertTrue(storage instanceof IntegerStorage);

@@ -29,22 +29,8 @@ public class Interpreter {
                 case e:
                     doIndexPredicateOperator(next.getSelector().getPredicate(), next.getOperator());
                     break;
-                case n:
-                case p:
-                case _0:
-                case _1:
-                case _2:
-                case _3:
-                case _4:
-                case _5:
-                case _6:
-                case _7:
-                case _8:
-                case _9:
-                    doOperator(next.getSelector().getPredicate(), next.getOperator());
-                    break;
                 default:
-                    throw new YException("Unrecognized Control character");
+                    doOperator(next.getSelector().getPredicate(), next.getOperator());
             }
             if (debug) {
                 System.out.println(storage);
@@ -53,23 +39,26 @@ public class Interpreter {
         System.out.println(storage);
     }
 
-    private void doIndexPredicateOperator(Predicate<Integer> predicate, Operator operator) {
-        IntegerStorage integerStorage = (IntegerStorage) storage;
+    private void doIndexPredicateOperator(Predicate<Object> predicate, Operator operator) {
+        Storage integerStorage = storage;
         for (int i = 0; i < integerStorage.getStorage().length; i++) {
             if (predicate.test(i)) {
-                integerStorage.getStorage()[i] = (Integer) operator.getUnaryOperator().apply(integerStorage.getStorage()[i]);
+                integerStorage.getStorage()[i] = operator.getUnaryOperator().apply(integerStorage.getStorage()[i]);
             }
         }
     }
 
 
-    private void doOperator(Predicate<Integer> predicate, Operator operator) {
-        IntegerStorage integerStorage = (IntegerStorage) storage;
+    private void doOperator(Predicate<Object> predicate, Operator operator) {
+        Storage integerStorage = storage;
         for (int i = 0; i < integerStorage.getStorage().length; i++) {
             if (predicate.test(integerStorage.getStorage()[i])) {
-                integerStorage.getStorage()[i] = (Integer) operator.getUnaryOperator().apply(integerStorage.getStorage()[i]);
+                integerStorage.getStorage()[i] = operator.getUnaryOperator().apply(integerStorage.getStorage()[i]);
             }
         }
     }
 
+    public Storage getStorage() {
+        return storage;
+    }
 }

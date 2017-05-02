@@ -23,6 +23,7 @@ public class InputConverter {
             }
             stringStorage.getStorage()[i] = split[i];
         }
-        return isInt ? integerStorage : stringStorage;
+        //return isInt ? integerStorage : stringStorage;
+        return stringStorage;
     }
 }

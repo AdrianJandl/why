@@ -29,17 +29,18 @@ public enum Selector {
         return new Selector[]{_0, _1, _2, _3, _4, _5, _6, _7, _8, _9};
     }
 
-    public Predicate<Integer> getPredicate() {
+    public Predicate<Object> getPredicate() {
         switch (this) {
             case n:
-                return i -> i < 0;
+                return i -> ((Integer) i) < 0;
             case p:
-                return i -> i > 0;
+                return i -> ((Integer) i) > 0;
             case o:
-                return i -> i % 2 != 0;
+                return i -> ((Integer) i) % 2 != 0;
             case e:
-                return i -> i % 2 == 0;
+                return i -> ((Integer) i) % 2 == 0;
             case _0:
+                return i -> true;
             case _1:
             case _2:
             case _3:

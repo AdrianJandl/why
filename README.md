@@ -7,11 +7,11 @@ YTho (*why though*) is a golfing language written as part of the Abstract Machin
   * Enable debug mode 
 
 ## Selectors:
-* e
+* e [x]
   * Selects even indices
-* o
+* o [x]
   * Selects odd indices
-* 0
+* 0 [x]
   * Selects all elements
 * sn
   * s turns on strict mode for the following selector
@@ -19,9 +19,9 @@ YTho (*why though*) is a golfing language written as part of the Abstract Machin
   * selects the n'th element
 * [1-9]
   * selects every n'th element
-* n
+* n [x]
   * negative integers
-* p
+* p [x]
   * positive integers
 * !x
   * ! turns on "all but" mode for the following selector
@@ -34,15 +34,15 @@ YTho (*why though*) is a golfing language written as part of the Abstract Machin
   * selects elements with length longer than n
   
 ## Operators:
-* S
+* S [x]
   * Squares the selected elements if they are integers
-* I
+* I [x]
   * Increments the selected elements if they are integers
-* P
+* P [x]
   * replaces the selected strings with a truthy (1) value if they are a palindrome, falsy otherwise
-* U 
+* U [x]
   * Converts the selected elements to uppercase if they are strings
-* l
+* l [x]
   * Converts the selected elements to lowercase if they are strings
 * C
   * Changes the case of each letter in the selected elements
@@ -50,12 +50,12 @@ YTho (*why though*) is a golfing language written as part of the Abstract Machin
   * floor
 * c
   * ceil
-* r
+* r [x]
   * reverse (on strings, treats integers as strings)
 * ^n
   * power function
   * n is number 1-9 inclusive
-* b
+* b [x]
   * converts each element to its binary representation
 * h
   * converts each element to its hex representation
