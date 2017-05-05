@@ -1,0 +1,33 @@
+apply plugin: 'idea'
+//and standard one
+apply plugin: 'java'
+
+sourceSets {
+    main {
+        java {
+            srcDirs = ['src']
+        }
+    }
+    test {
+        java {
+            srcDirs = ['src/test']
+        }
+    }
+}
+repositories {
+    mavenCentral()
+}
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '5.+'
+    testCompile group: 'org.mockito', name: 'mockito-core', version: '2.7.+'
+}
+defaultTasks 'clean', 'run', 'test'
+task clean {
+
+}
+task run {
+
+}
+task test {
+
+}
