@@ -1,9 +1,27 @@
 package am.why.java.storage;
 
+import java.util.Arrays;
+
 /**
  * Created by Adrian on 12-Apr-17.
  */
-public abstract class Storage {
+public class Storage {
+    private String[] storage;
 
-    public abstract Object[] getStorage();
+    public Storage(int size) {
+        storage = new String[size];
+    }
+
+    public String[] getStorage() {
+        return storage;
+    }
+
+    public void setStorage(String[] storage) {
+        this.storage = storage;
+    }
+
+    @Override
+    public String toString() {
+        return Arrays.toString(storage);
+    }
 }

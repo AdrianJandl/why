@@ -4,6 +4,9 @@ package am.why.java.interpreter;
 import am.why.java.input.InputConverter;
 import am.why.java.scanner.YScanner;
 import am.why.java.storage.Storage;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Predicate;
 
 /**
@@ -12,51 +15,56 @@ import java.util.function.Predicate;
 public class Interpreter {
     private Storage storage;
     private boolean debug;
+    private YScanner yScanner;
+    private List<String> history;
 
-    public Interpreter(YScanner yScanner, String input) {
+    public Interpreter(YScanner yScanner, String input, boolean debug) {
         InputConverter inputConverter = new InputConverter();
         storage = inputConverter.process(input);
+        this.yScanner = yScanner;
+        this.debug = debug;
+        this.history = new ArrayList<>();
+    }
+
+    public void interpret() {
         while (yScanner.hasNext()) {
             Command next = yScanner.getNextCommand();
-            if (next.getSelector() == null && next.getOperator() == null) {
-                debug = true;
-                continue;
-            }
             switch (next.getSelector()) {
                 case o:
                 case e:
-                    doIndexPredicateOperator(next.getSelector().getPredicate(), next.getOperator());
+                    doIndexOperator(next.getSelector().getPredicate(), next.getOperator());
                     break;
                 default:
                     doOperator(next.getSelector().getPredicate(), next.getOperator());
             }
             if (debug) {
-                System.out.println(storage);
+                history.add(storage.toString());
             }
         }
-        System.out.println(storage);
     }
 
-    private void doIndexPredicateOperator(Predicate<Object> predicate, Operator operator) {
-        Storage integerStorage = storage;
-        for (int i = 0; i < integerStorage.getStorage().length; i++) {
+    private void doIndexOperator(Predicate<Object> predicate, Operator operator) {
+        for (int i = 0; i < storage.getStorage().length; i++) {
             if (predicate.test(i)) {
-                integerStorage.getStorage()[i] = operator.getUnaryOperator().apply(integerStorage.getStorage()[i]);
+                storage.getStorage()[i] = String.valueOf(operator.getUnaryOperator().apply(storage.getStorage()[i]));
             }
         }
     }
 
 
     private void doOperator(Predicate<Object> predicate, Operator operator) {
-        Storage integerStorage = storage;
-        for (int i = 0; i < integerStorage.getStorage().length; i++) {
-            if (predicate.test(integerStorage.getStorage()[i])) {
-                integerStorage.getStorage()[i] = operator.getUnaryOperator().apply(integerStorage.getStorage()[i]);
+        for (int i = 0; i < storage.getStorage().length; i++) {
+            if (predicate.test(storage.getStorage()[i])) {
+                storage.getStorage()[i] = String.valueOf(operator.getUnaryOperator().apply(storage.getStorage()[i]));
             }
         }
     }
 
     public Storage getStorage() {
         return storage;
+    }
+
+    public List<String> getHistory() {
+        return history;
     }
 }

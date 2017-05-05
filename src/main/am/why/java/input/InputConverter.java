@@ -1,8 +1,6 @@
 package am.why.java.input;
 
 
-import am.why.java.storage.IntegerStorage;
-import am.why.java.storage.StringStorage;
 import am.why.java.storage.Storage;
 
 /**
@@ -12,19 +10,8 @@ public class InputConverter {
 
     public Storage process(String input) {
         String[] split = input.split(",");
-        Storage stringStorage = new StringStorage(split.length);
-        Storage integerStorage = new IntegerStorage(split.length);
-        boolean isInt = true;
-        for (int i = 0; i < split.length; i++) {
-            try {
-                integerStorage.getStorage()[i] = Integer.parseInt(split[i]);
-            } catch (NumberFormatException e) {
-                //silently swallow this
-                isInt = false;
-            }
-            stringStorage.getStorage()[i] = split[i];
-        }
-        //return isInt ? integerStorage : stringStorage;
-        return stringStorage;
+        Storage storage = new Storage(split.length);
+        storage.setStorage(split);
+        return storage;
     }
 }
