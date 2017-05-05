@@ -42,9 +42,8 @@ class InterpreterTest {
         when(yScanner.getNextCommand()).thenReturn(new Command(null, null), new Command(Selector.e, Operator.I), new Command(Selector.e, Operator.I));
         when(yScanner.hasNext()).thenReturn(true, true, true, false);
         Interpreter interpreter = new Interpreter(yScanner, "1,2,3,4");
-        assertEquals("storage.StringStorage{storage=[2, 2, 4, 4]}\r\n" +
-                "storage.StringStorage{storage=[3, 2, 5, 4]}\r\n" +
-                "storage.StringStorage{storage=[3, 2, 5, 4]}\r\n".trim(), outContent.toString().trim());
+        String s = "storage.StringStorage{storage=[2, 2, 4, 4]}storage.StringStorage{storage=[3, 2, 5, 4]}storage.StringStorage{storage=[3, 2, 5, 4]}";
+        assertEquals(s.replaceAll("\\s", ""), outContent.toString().replaceAll("\\s", ""));
     }
 
     @Test
@@ -61,7 +60,7 @@ class InterpreterTest {
     }
 
     @Test
-    void testBitConvertInts(){
+    void testBitConvertInts() {
         YScanner yScanner = mock(YScanner.class);
         when(yScanner.getNextCommand()).thenReturn(new Command(Selector._0, Operator.b));
         when(yScanner.hasNext()).thenReturn(true, false);
