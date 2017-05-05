@@ -58,4 +58,9 @@ public class InterpreterTest {
             assertEquals(results[i], interpreter.getStorage().getStorage()[i]);
         }
     }
+
+    @Test
+    public void testAllButSelector() {
+        
+    }
 }

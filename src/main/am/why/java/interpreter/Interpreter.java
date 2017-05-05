@@ -34,6 +34,9 @@ public class Interpreter {
                 case e:
                     doIndexOperator(next.getSelector().getPredicate(), next.getOperator());
                     break;
+                case not:
+                    // TODO get 2 selector parts
+                    break;
                 default:
                     doOperator(next.getSelector().getPredicate(), next.getOperator());
             }
