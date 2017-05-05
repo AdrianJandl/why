@@ -1,6 +1,6 @@
-package test;
+package java;
 
-import interpreter.Special;
+import main.java.interpreter.Special;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

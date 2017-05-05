@@ -1,6 +1,6 @@
-package interpreter;
+package main.java.interpreter;
 
-import exception.YException;
+import main.java.exception.YException;
 
 import java.util.function.Predicate;
 

@@ -1,11 +1,11 @@
-package test;
+package java;
 
-import exception.YException;
-import interpreter.Command;
-import interpreter.Operator;
-import interpreter.Selector;
+import main.java.exception.YException;
+import main.java.interpreter.Command;
+import main.java.interpreter.Operator;
+import main.java.interpreter.Selector;
 import org.junit.jupiter.api.Test;
-import scanner.YScanner;
+import main.java.scanner.YScanner;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;

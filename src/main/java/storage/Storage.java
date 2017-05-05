@@ -1,4 +1,4 @@
-package storage;
+package main.java.storage;
 
 /**
  * Created by Adrian on 12-Apr-17.

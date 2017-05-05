@@ -1,10 +1,10 @@
-package test;
+package java;
 
-import input.InputConverter;
+import main.java.input.InputConverter;
 import org.junit.jupiter.api.Test;
-import storage.IntegerStorage;
-import storage.Storage;
-import storage.StringStorage;
+import main.java.storage.IntegerStorage;
+import main.java.storage.Storage;
+import main.java.storage.StringStorage;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;

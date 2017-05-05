@@ -1,10 +1,8 @@
-package interpreter;
+package main.java.interpreter;
 
-import exception.YException;
-import input.InputConverter;
-import scanner.YScanner;
-import storage.IntegerStorage;
-import storage.Storage;
+import main.java.input.InputConverter;
+import main.java.scanner.YScanner;
+import main.java.storage.Storage;
 
 import java.util.function.Predicate;
 

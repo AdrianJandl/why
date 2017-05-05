@@ -1,8 +1,8 @@
-package input;
+package main.java.input;
 
-import storage.IntegerStorage;
-import storage.Storage;
-import storage.StringStorage;
+import main.java.storage.IntegerStorage;
+import main.java.storage.Storage;
+import main.java.storage.StringStorage;
 
 /**
  * Created by Adrian on 12-Apr-17.

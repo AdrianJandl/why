@@ -1,7 +1,7 @@
-package scanner;
+package main.java.scanner;
 
-import exception.YException;
-import interpreter.*;
+import main.java.exception.YException;
+import main.java.interpreter.*;
 
 import java.util.Arrays;
 

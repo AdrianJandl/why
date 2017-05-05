@@ -1,4 +1,4 @@
-package storage;
+package main.java.storage;
 
 import java.util.Arrays;
 
@@ -19,8 +19,8 @@ public class IntegerStorage extends Storage {
 
     @Override
     public String toString() {
-        return "storage.IntegerStorage{" +
-                "storage=" + Arrays.toString(storage) +
+        return "main.java.storage.IntegerStorage{" +
+                "main.java.storage=" + Arrays.toString(storage) +
                 '}';
     }
 }

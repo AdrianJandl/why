@@ -5,7 +5,7 @@ apply plugin: 'java'
 sourceSets {
     main {
         java {
-            srcDirs = ['src']
+            srcDirs = ['src/main']
         }
     }
     test {
@@ -21,13 +21,8 @@ dependencies {
     testCompile group: 'junit', name: 'junit', version: '5.+'
     testCompile group: 'org.mockito', name: 'mockito-core', version: '2.7.+'
 }
-defaultTasks 'clean', 'run', 'test'
-task clean {
+defaultTasks 'run'
 
-}
 task run {
-
-}
-task test {
 
 }

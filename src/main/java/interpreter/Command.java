@@ -1,4 +1,4 @@
-package interpreter;
+package main.java.interpreter;
 
 import java.util.Objects;
 

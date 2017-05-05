@@ -1,14 +1,14 @@
-package test;
+package java;
 
-import interpreter.Command;
-import interpreter.Interpreter;
-import interpreter.Operator;
-import interpreter.Selector;
+import main.java.interpreter.Command;
+import main.java.interpreter.Interpreter;
+import main.java.interpreter.Operator;
+import main.java.interpreter.Selector;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import scanner.YScanner;
-import storage.StringStorage;
+import main.java.scanner.YScanner;
+import main.java.storage.StringStorage;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
@@ -42,7 +42,7 @@ class InterpreterTest {
         when(yScanner.getNextCommand()).thenReturn(new Command(null, null), new Command(Selector.e, Operator.I), new Command(Selector.e, Operator.I));
         when(yScanner.hasNext()).thenReturn(true, true, true, false);
         Interpreter interpreter = new Interpreter(yScanner, "1,2,3,4");
-        String s = "storage.StringStorage{storage=[2, 2, 4, 4]}storage.StringStorage{storage=[3, 2, 5, 4]}storage.StringStorage{storage=[3, 2, 5, 4]}";
+        String s = "main.java.storage.StringStorage{main.java.storage=[2, 2, 4, 4]}main.java.storage.StringStorage{main.java.storage=[3, 2, 5, 4]}main.java.storage.StringStorage{main.java.storage=[3, 2, 5, 4]}";
         assertEquals(s.replaceAll("\\s", ""), outContent.toString().replaceAll("\\s", ""));
     }
 
