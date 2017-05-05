@@ -6,22 +6,22 @@ import java.util.Arrays;
  * Created by Adrian on 12-Apr-17.
  */
 public class Storage {
-    private String[] storage;
+    private String[] array;
 
     public Storage(int size) {
-        storage = new String[size];
+        array = new String[size];
     }
 
-    public String[] getStorage() {
-        return storage;
+    public String[] getArray() {
+        return array;
     }
 
-    public void setStorage(String[] storage) {
-        this.storage = storage;
+    public void setArray(String[] array) {
+        this.array = array;
     }
 
     @Override
     public String toString() {
-        return Arrays.toString(storage);
+        return Arrays.toString(array);
     }
 }

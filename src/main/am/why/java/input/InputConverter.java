@@ -11,7 +11,7 @@ public class InputConverter {
     public Storage process(String input) {
         String[] split = input.split(",");
         Storage storage = new Storage(split.length);
-        storage.setStorage(split);
+        storage.setArray(split);
         return storage;
     }
 }

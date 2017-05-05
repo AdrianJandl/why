@@ -16,11 +16,11 @@ public class InputConverterTest {
     public void testStringInput() {
         InputConverter inputConverter = new InputConverter();
         Storage storage = inputConverter.process("1,2,a,b,cccc");
-        assertEquals("1", storage.getStorage()[0]);
-        assertEquals("2", storage.getStorage()[1]);
-        assertEquals("a", storage.getStorage()[2]);
-        assertEquals("b", storage.getStorage()[3]);
-        assertEquals("cccc", storage.getStorage()[4]);
+        assertEquals("1", storage.getArray()[0]);
+        assertEquals("2", storage.getArray()[1]);
+        assertEquals("a", storage.getArray()[2]);
+        assertEquals("b", storage.getArray()[3]);
+        assertEquals("cccc", storage.getArray()[4]);
     }
 
 }

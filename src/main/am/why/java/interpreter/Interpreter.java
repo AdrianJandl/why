@@ -44,18 +44,18 @@ public class Interpreter {
     }
 
     private void doIndexOperator(Predicate<Object> predicate, Operator operator) {
-        for (int i = 0; i < storage.getStorage().length; i++) {
+        for (int i = 0; i < storage.getArray().length; i++) {
             if (predicate.test(i)) {
-                storage.getStorage()[i] = String.valueOf(operator.getUnaryOperator().apply(storage.getStorage()[i]));
+                storage.getArray()[i] = String.valueOf(operator.getUnaryOperator().apply(storage.getArray()[i]));
             }
         }
     }
 
 
     private void doOperator(Predicate<Object> predicate, Operator operator) {
-        for (int i = 0; i < storage.getStorage().length; i++) {
-            if (predicate.test(storage.getStorage()[i])) {
-                storage.getStorage()[i] = String.valueOf(operator.getUnaryOperator().apply(storage.getStorage()[i]));
+        for (int i = 0; i < storage.getArray().length; i++) {
+            if (predicate.test(storage.getArray()[i])) {
+                storage.getArray()[i] = String.valueOf(operator.getUnaryOperator().apply(storage.getArray()[i]));
             }
         }
     }

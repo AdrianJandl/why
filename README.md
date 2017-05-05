@@ -10,6 +10,10 @@ YTho (*why though*) is a golfing language written as part of the Abstract Machin
   * Selects even indices
 * **o**
   * Selects odd indices
+* **E**
+  * Selects even integers
+* **O**
+  * Selects odd integers
 * **0**
   * Selects all elements
 * sn
@@ -66,6 +70,9 @@ YTho (*why though*) is a golfing language written as part of the Abstract Machin
   * multiply
 * /
   * divide
+  
+To come: Atbash alphabet(Atbash cypher)
+Possible changes: group commands
   
 - [ ] Loops
 - [ ] Syntax error checking

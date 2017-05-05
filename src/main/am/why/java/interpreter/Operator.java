@@ -1,6 +1,7 @@
 package am.why.java.interpreter;
 
 import am.why.java.exception.YException;
+
 import java.util.BitSet;
 import java.util.function.UnaryOperator;
 
@@ -8,7 +9,7 @@ import java.util.function.UnaryOperator;
  * Created by Adrian on 21-Apr-17.
  */
 public enum Operator {
-    S('S'), I('I'), P('P'), U('U'), l('l'), C('C'), f('f'), c('c'), r('r'), pow('^'), b('b'), h('h'), plus('+'), minus('-'), mult('*'), div('/');
+    S('S'), I('I'), P('P'), U('U'), l('l'), C('C'), f('f'), c('c'), r('r'), pow('^'), b('b'), h('h'), plus('+'), minus('-'), mult('*'), div('/'), D('D');
     private final char aChar;
 
     Operator(char aChar) {
@@ -31,7 +32,7 @@ public enum Operator {
             case l:
                 return s -> ((String) s).toLowerCase();
             case I:
-                return i -> String.valueOf(Integer.parseInt(String.valueOf(i)) + 1);
+                return i -> Integer.parseInt(String.valueOf(i)) + 1;
             case U:
                 return s -> ((String) s).toUpperCase();
             case P:
@@ -42,6 +43,8 @@ public enum Operator {
                 return s -> ""; //FIXME do we change datatype from int to Double/BigDecimal?
             case b:
                 return s -> getBits(s);
+            case D:
+                return s -> Integer.parseInt(String.valueOf(s)) - 1;
             case c:
             case C:
             case h:
