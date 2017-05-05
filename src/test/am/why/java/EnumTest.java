@@ -1,16 +1,17 @@
-package java;
+package am.why.java;
 
-import main.java.interpreter.Special;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import am.why.java.interpreter.Special;
+
+import static org.junit.Assert.assertEquals;
 
 /**
  * Created by Adrian on 21-Apr-17.
  */
-class EnumTest {
+public class EnumTest {
     @Test
-    void testConvert() {
+    public void testConvert() {
         char c = '_';
         Special underScore = Special.UNDERSCORE;
         Special test = Special.from(c);

@@ -1,4 +1,4 @@
-package main.java.storage;
+package am.why.java.storage;
 
 /**
  * Created by Adrian on 12-Apr-17.

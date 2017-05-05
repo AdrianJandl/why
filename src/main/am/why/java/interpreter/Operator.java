@@ -1,7 +1,6 @@
-package main.java.interpreter;
+package am.why.java.interpreter;
 
-import main.java.exception.YException;
-
+import am.why.java.exception.YException;
 import java.util.BitSet;
 import java.util.function.UnaryOperator;
 

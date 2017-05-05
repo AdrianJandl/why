@@ -1,21 +1,23 @@
-package java;
+package am.why.java;
 
-import main.java.input.InputConverter;
-import org.junit.jupiter.api.Test;
-import main.java.storage.IntegerStorage;
-import main.java.storage.Storage;
-import main.java.storage.StringStorage;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import org.junit.Test;
+
+import am.why.java.input.InputConverter;
+import am.why.java.storage.IntegerStorage;
+import am.why.java.storage.Storage;
+import am.why.java.storage.StringStorage;
+
+import static junit.framework.TestCase.assertTrue;
+import static org.junit.Assert.assertEquals;
 
 
 /**
  * Created by Adrian on 12-Apr-17.
  */
-class InputConverterTest {
+public class InputConverterTest {
     @Test
-    void testStringInput() {
+    public void testStringInput() {
         InputConverter inputConverter = new InputConverter();
         Storage storage = inputConverter.process("1,2,a,b,cccc");
         assertTrue(storage instanceof StringStorage);
@@ -26,8 +28,7 @@ class InputConverterTest {
         assertEquals("cccc", storage.getStorage()[4]);
     }
 
-    @Test
-    void testIntegerInput() {//FIXME how do we handle this?
+    public void testIntegerInput() {//FIXME how do we handle this?
         InputConverter inputConverter = new InputConverter();
         Storage storage = inputConverter.process("1,2,3,4");
         assertTrue(storage instanceof IntegerStorage);

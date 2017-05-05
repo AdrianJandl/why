@@ -1,4 +1,4 @@
-package main.java.interpreter;
+package am.why.java.interpreter;
 
 import java.util.Objects;
 

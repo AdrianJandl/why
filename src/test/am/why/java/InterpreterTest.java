@@ -1,53 +1,56 @@
-package java;
+package am.why.java;
 
-import main.java.interpreter.Command;
-import main.java.interpreter.Interpreter;
-import main.java.interpreter.Operator;
-import main.java.interpreter.Selector;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
-import main.java.scanner.YScanner;
-import main.java.storage.StringStorage;
+
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+
+import am.why.java.interpreter.Command;
+import am.why.java.interpreter.Interpreter;
+import am.why.java.interpreter.Operator;
+import am.why.java.interpreter.Selector;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import am.why.java.scanner.YScanner;
+import am.why.java.storage.StringStorage;
+
+import static junit.framework.TestCase.assertTrue;
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 /**
  * Created by Adrian on 26.04.2017.
  */
-class InterpreterTest {
+public class InterpreterTest {
     private static final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
     private static PrintStream out;
 
-    @BeforeAll
-    static void setUp() {
+    @Before
+    public void setUp() {
         out = System.out;
         System.setOut(new PrintStream(outContent));
     }
 
-    @AfterAll
-    static void tearDown() {
+    @After
+    public void tearDown() {
         System.setOut(out);
     }
 
     @Test
-    void testDebug() {
+    public void testDebug() {
         YScanner yScanner = mock(YScanner.class);
         when(yScanner.getNextCommand()).thenReturn(new Command(null, null), new Command(Selector.e, Operator.I), new Command(Selector.e, Operator.I));
         when(yScanner.hasNext()).thenReturn(true, true, true, false);
         Interpreter interpreter = new Interpreter(yScanner, "1,2,3,4");
-        String s = "main.java.storage.StringStorage{main.java.storage=[2, 2, 4, 4]}main.java.storage.StringStorage{main.java.storage=[3, 2, 5, 4]}main.java.storage.StringStorage{main.java.storage=[3, 2, 5, 4]}";
+        String s = "main.StringStorage{main.why.storage=[2, 2, 4, 4]}main.StringStorage{main.why.storage=[3, 2, 5, 4]}main.StringStorage{main.why.storage=[3, 2, 5, 4]}";
         assertEquals(s.replaceAll("\\s", ""), outContent.toString().replaceAll("\\s", ""));
     }
 
     @Test
-    void testPalindrome() {
+    public void testPalindrome() {
         YScanner yScanner = mock(YScanner.class);
         when(yScanner.getNextCommand()).thenReturn(new Command(Selector._0, Operator.P));
         when(yScanner.hasNext()).thenReturn(true, false);
@@ -60,7 +63,7 @@ class InterpreterTest {
     }
 
     @Test
-    void testBitConvertInts() {
+    public void testBitConvertInts() {
         YScanner yScanner = mock(YScanner.class);
         when(yScanner.getNextCommand()).thenReturn(new Command(Selector._0, Operator.b));
         when(yScanner.hasNext()).thenReturn(true, false);

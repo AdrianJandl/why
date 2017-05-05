@@ -1,4 +1,4 @@
-package main.java.exception;
+package am.why.java.exception;
 
 /**
  * Created by Adrian on 12-Apr-17.

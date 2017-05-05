@@ -1,7 +1,8 @@
-package main.java.scanner;
+package am.why.java.scanner;
 
-import main.java.exception.YException;
-import main.java.interpreter.*;
+
+import am.why.java.exception.YException;
+import am.why.java.interpreter.*;
 
 import java.util.Arrays;
 

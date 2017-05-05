@@ -1,8 +1,9 @@
-package main.java.input;
+package am.why.java.input;
 
-import main.java.storage.IntegerStorage;
-import main.java.storage.Storage;
-import main.java.storage.StringStorage;
+
+import am.why.java.storage.IntegerStorage;
+import am.why.java.storage.StringStorage;
+import am.why.java.storage.Storage;
 
 /**
  * Created by Adrian on 12-Apr-17.

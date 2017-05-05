@@ -1,9 +1,9 @@
-package main.java.interpreter;
+package am.why.java.interpreter;
 
-import main.java.input.InputConverter;
-import main.java.scanner.YScanner;
-import main.java.storage.Storage;
 
+import am.why.java.input.InputConverter;
+import am.why.java.scanner.YScanner;
+import am.why.java.storage.Storage;
 import java.util.function.Predicate;
 
 /**

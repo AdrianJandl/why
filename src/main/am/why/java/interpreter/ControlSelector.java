@@ -1,4 +1,4 @@
-package main.java.interpreter;
+package am.why.java.interpreter;
 
 /**
  * Created by Adrian on 21-Apr-17.
