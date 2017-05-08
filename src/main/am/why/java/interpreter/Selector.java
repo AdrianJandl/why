@@ -46,14 +46,23 @@ public enum Selector {
             case O:
                 return s -> Integer.parseInt(String.valueOf(s)) % 2 != 0;
             case _1:
+                return s -> Integer.parseInt(String.valueOf(s)) == 1;
             case _2:
+                return s -> Integer.parseInt(String.valueOf(s)) % 2 == 0;
             case _3:
+                return s -> Integer.parseInt(String.valueOf(s)) % 3 == 0;
             case _4:
+                return s -> Integer.parseInt(String.valueOf(s)) % 4 == 0;
             case _5:
+                return s -> Integer.parseInt(String.valueOf(s)) % 5 == 0;
             case _6:
+                return s -> Integer.parseInt(String.valueOf(s)) % 6 == 0;
             case _7:
+                return s -> Integer.parseInt(String.valueOf(s)) % 7 == 0;
             case _8:
+                return s -> Integer.parseInt(String.valueOf(s)) % 8 == 0;
             case _9:
+                return s -> Integer.parseInt(String.valueOf(s)) % 9 == 0;
             default:
                 throw new YException("METHOD STUB! NOT YET IMPLEMENTED");
         }
