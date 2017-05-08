@@ -41,6 +41,8 @@ YTho (*why though*) is a golfing language written as part of the Abstract Machin
   * Squares the selected elements if they are integers
 * **I**
   * Increments the selected elements if they are integers
+* **D**
+  * Decrements the selected elements if they are integers
 * **P**
   * replaces the selected strings with a truthy (1) value if they are a palindrome, falsy otherwise
 * **U**

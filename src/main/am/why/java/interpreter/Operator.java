@@ -28,15 +28,39 @@ public enum Operator {
     public UnaryOperator<Object> getUnaryOperator() {
         switch (this) {
             case S:
-                return i -> Integer.parseInt(String.valueOf(i)) * Integer.parseInt(String.valueOf(i));
+                return i -> {
+                    try {
+                        return Integer.parseInt(String.valueOf(i)) * Integer.parseInt(String.valueOf(i));
+                    } catch (NumberFormatException e) {
+                        return i;
+                    }
+                };
             case l:
-                return s -> ((String) s).toLowerCase();
+                return s -> {
+                    try {
+                        return ((String) s).toLowerCase();
+                    } catch (Exception e) {
+                        return s;
+                    }
+                };
             case I:
-                return i -> Integer.parseInt(String.valueOf(i)) + 1;
+                return i -> {
+                    try {
+                        return Integer.parseInt(String.valueOf(i)) + 1;
+                    } catch (NumberFormatException e) {
+                        return i;
+                    }
+                };
             case U:
-                return s -> ((String) s).toUpperCase();
+                return s -> {
+                    try {
+                        return ((String) s).toUpperCase();
+                    } catch (Exception e) {
+                        return s;
+                    }
+                };
             case P:
-                return s -> isPalindrome(((String) s));
+                return s -> isPalindrome((String.valueOf(s)));
             case r:
                 return s -> new StringBuilder(String.valueOf(s)).reverse().toString();
             case f:
@@ -44,7 +68,13 @@ public enum Operator {
             case b:
                 return s -> getBits(s);
             case D:
-                return s -> Integer.parseInt(String.valueOf(s)) - 1;
+                return s -> {
+                    try {
+                        return Integer.parseInt(String.valueOf(s)) - 1;
+                    } catch (NumberFormatException e) {
+                        return s;
+                    }
+                };
             case c:
             case C:
             case h:
@@ -63,7 +93,16 @@ public enum Operator {
             Integer myInt = Integer.parseInt(String.valueOf(s));
             return Integer.toString(myInt, 2);
         } catch (NumberFormatException e) {
-            return BitSet.valueOf(String.valueOf(s).getBytes()).toString();
+            byte[] bytes = ((String) s).getBytes();
+            StringBuilder binary = new StringBuilder();
+            for (byte b : bytes) {
+                int val = b;
+                for (int i = 0; i < 8; i++) {
+                    binary.append((val & 128) == 0 ? 0 : 1);
+                    val <<= 1;
+                }
+            }
+            return binary.toString();
         }
     }
 
