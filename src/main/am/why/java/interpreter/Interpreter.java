@@ -32,16 +32,18 @@ public class Interpreter {
             switch (next.getSelector()) {
                 case o:
                 case e:
-                    doIndexOperator(next.getSelector().getPredicate(), next.getOperator());
-                    break;
-                case not:
-                    // TODO get 2 selector parts
-                    // suggestion: half step in scanner
-                    // regular doOperator with newly merged selector
+                    doIndexOperator(next.getControlSelector() == null
+                            ? next.getSelector().getPredicate()
+                            : next.getControlSelector().modifySelector(next.getSelector().getPredicate()),
+                            next.getOperator());
                     break;
                 default:
-                    doOperator(next.getSelector().getPredicate(), next.getOperator());
+                    doOperator(next.getControlSelector() == null
+                            ? next.getSelector().getPredicate()
+                            : next.getControlSelector().modifySelector(next.getSelector().getPredicate()),
+                            next.getOperator());
             }
+
             if (debug) {
                 history.add(storage.toString());
             }

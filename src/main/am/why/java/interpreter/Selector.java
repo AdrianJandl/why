@@ -7,7 +7,7 @@ import java.util.function.Predicate;
  * Created by Adrian on 21-Apr-17.
  */
 public enum Selector {
-    e('e'), o('o'), _0('0'), _1('1'), _2('2'), _3('3'), _4('4'), _5('5'), _6('6'), _7('7'), _8('8'), _9('9'), n('n'), p('p'), not('!');
+    e('e'), o('o'), _0('0'), _1('1'), _2('2'), _3('3'), _4('4'), _5('5'), _6('6'), _7('7'), _8('8'), _9('9'), n('n'), p('p');
 
     private final char aChar;
 
@@ -40,9 +40,6 @@ public enum Selector {
                 return i -> ((Integer) i) % 2 == 0;
             case _0:
                 return i -> true;
-            case not:
-                // TODO
-                //return (i -> ((Predicate) i).negate());
             case _1:
             case _2:
             case _3:

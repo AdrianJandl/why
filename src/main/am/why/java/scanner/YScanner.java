@@ -4,23 +4,23 @@ package am.why.java.scanner;
 import am.why.java.exception.YException;
 import am.why.java.interpreter.*;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * Created by Adrian on 12-Apr-17.
  */
 public class YScanner {
-    private int programCounter;
     private String program;
     private boolean syntaxChecked = false;
-
-    private YScanner() {
-        programCounter = 0;
-    }
+    private List<Command> commandList;
+    private Iterator<Command> commandIterator;
 
     public YScanner(String program) {
-        this();
         this.program = program;
+        commandList = new ArrayList<>();
     }
 
     public boolean checkSyntax() {
@@ -42,26 +42,27 @@ public class YScanner {
                 if (controlSelector != null) {
                     if (!Arrays.asList(controlSelector.getFollowedBy()).contains(selector)) {
                         throw new YException("Syntax error. Control Selector followed by unallowed Selector at index [" + i + "] in \"" + program + "\"");
-                    } else {
-                        // TODO implement array for selector and operator tracking
                     }
                 }
                 Operator operators = Operator.from(a[i]);
+                commandList.add(new Command(controlSelector, selector, operators));
             } catch (IllegalArgumentException o_O) {
                 throw new YException("Syntax error at index [" + i + "] in \"" + program + "\"");
             }
         }
+        commandIterator = commandList.iterator();
         syntaxChecked = true;
         return true;
     }
 
     public Command getNextCommand() {
-        Command command = new Command(Selector.from(program.charAt(programCounter)), Operator.from(program.charAt(programCounter + 1)));
-        programCounter += 2;
-        return command;
+        if (commandIterator.hasNext()){
+            return commandIterator.next();
+        }
+        return null;
     }
 
     public boolean hasNext() {
-        return programCounter + 2 < program.length();
+        return commandIterator.hasNext();
     }
 }

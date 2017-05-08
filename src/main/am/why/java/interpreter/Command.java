@@ -7,11 +7,13 @@ import java.util.Objects;
  */
 public class Command {
     private Selector selector;
+    private ControlSelector controlSelector;
     private Operator operator;
 
-    public Command(Selector selector, Operator operator) {
+    public Command(ControlSelector controlSelector, Selector selector, Operator operator) {
         this.selector = selector;
         this.operator = operator;
+        this.controlSelector = controlSelector;
     }
 
     public Selector getSelector() {
@@ -42,5 +44,9 @@ public class Command {
     @Override
     public int hashCode() {
         return Objects.hash(selector, operator);
+    }
+
+    public ControlSelector getControlSelector() {
+        return controlSelector;
     }
 }
