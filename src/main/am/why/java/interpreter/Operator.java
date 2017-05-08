@@ -82,8 +82,9 @@ public enum Operator {
                 return s -> System.currentTimeMillis();
             case t:
                 return s -> LocalDate.now().toString();
-            case c:
             case C:
+                return s -> changeCase(s);
+            case c:
             case h:
             case div:
             case mult:
@@ -93,6 +94,21 @@ public enum Operator {
 
             default:
                 throw new YException("METHOD STUB! \"" + this + "\" NOT YET IMPLEMENTED");
+        }
+    }
+
+    private String changeCase(Object o) {
+        try {
+            Integer myInt = Integer.parseInt(String.valueOf(o));
+            return myInt.toString();
+        } catch (NumberFormatException o_O) {
+            String s = String.valueOf(o);
+            StringBuilder sb = new StringBuilder();
+            for (char c : s.toCharArray()) {
+                String tmp = String.valueOf(c);
+                sb.append(tmp.toUpperCase().equals(tmp) ? tmp.toLowerCase() : tmp.toUpperCase());
+            }
+            return sb.toString();
         }
     }
 
