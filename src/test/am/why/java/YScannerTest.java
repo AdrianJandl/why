@@ -19,6 +19,7 @@ public class YScannerTest {
     @Test
     public void testGetNextCommand() {
         YScanner x = new YScanner("oSeI");
+        x.checkSyntax();
         Command first = x.getNextCommand();
         assertEquals(Selector.o, first.getSelector());
         assertEquals(Operator.S, first.getOperator());

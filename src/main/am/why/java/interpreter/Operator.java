@@ -40,7 +40,7 @@ public enum Operator {
             case r:
                 return s -> new StringBuilder(String.valueOf(s)).reverse().toString();
             case f:
-                return s -> ""; //FIXME do we change datatype from int to Double/BigDecimal?
+                return s -> ""; //FIXME do we change datatype from int to Double/BigDecimal? edit 5.5. mkrejci -> we definitely should
             case b:
                 return s -> getBits(s);
             case D:

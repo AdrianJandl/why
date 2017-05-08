@@ -1,5 +1,9 @@
 package am.why.java.interpreter;
 
+import am.why.java.exception.YException;
+
+import java.util.function.Predicate;
+
 /**
  * Created by Adrian on 21-Apr-17.
  */
@@ -20,6 +24,18 @@ public enum ControlSelector {
             }
         }
         throw new IllegalArgumentException("No constant " + character + " found.");
+    }
+
+    public Predicate<Object> modifySelector(Predicate<Object> selectorPredicate) {
+        switch (this) {
+            case exclamation:
+                return selectorPredicate.negate();
+            case l:
+            case L:
+            case s:
+            default:
+                throw new YException("ControlSelector not implemented!");
+        }
     }
 
     public Selector[] getFollowedBy() {

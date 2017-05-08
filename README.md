@@ -1,5 +1,5 @@
 # YTho
-YTho (*why though*) is a golfing language written as part of the Abstract Machines course at Vienna University of Technology. One statement is usually composed of a selector and an operator. The selector first selects part of the main.why.input and then the operator is applied on the selected elements.
+YTho (*why though*) is a golfing language written as part of the Abstract Machines course at Vienna University of Technology. One statement is usually composed of a selector and an operator. The selector first selects part of the input and then the operator is applied on the selected elements.
 
 [![CircleCI](https://circleci.com/gh/pa-pi/why/tree/master.svg?style=svg)](https://circleci.com/gh/pa-pi/why/tree/master)
 
@@ -26,7 +26,7 @@ YTho (*why though*) is a golfing language written as part of the Abstract Machin
   * negative integers
 * **p**
   * positive integers
-* !x
+* **!x**
   * ! turns on "all but" mode for the following selector
   * x can be any selector
 * ln

@@ -4,25 +4,29 @@ package am.why.java.scanner;
 import am.why.java.exception.YException;
 import am.why.java.interpreter.*;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * Created by Adrian on 12-Apr-17.
  */
 public class YScanner {
-    private int programCounter;
     private String program;
-
-    private YScanner() {
-        programCounter = 0;
-    }
+    private boolean syntaxChecked = false;
+    private List<Command> commandList;
+    private Iterator<Command> commandIterator;
 
     public YScanner(String program) {
-        this();
         this.program = program;
+        commandList = new ArrayList<>();
     }
 
     public boolean checkSyntax() {
+        if (syntaxChecked) {
+            throw new YException("Illegal duplicate call to checkSyntax!");
+        }
         char a[] = program.toCharArray();
         for (int i = 0; i < a.length; i++) {
             ControlSelector controlSelector = null;
@@ -41,20 +45,24 @@ public class YScanner {
                     }
                 }
                 Operator operators = Operator.from(a[i]);
+                commandList.add(new Command(controlSelector, selector, operators));
             } catch (IllegalArgumentException o_O) {
                 throw new YException("Syntax error at index [" + i + "] in \"" + program + "\"");
             }
         }
+        commandIterator = commandList.iterator();
+        syntaxChecked = true;
         return true;
     }
 
     public Command getNextCommand() {
-        Command command = new Command(Selector.from(program.charAt(programCounter)), Operator.from(program.charAt(programCounter + 1)));
-        programCounter += 2;
-        return command;
+        if (commandIterator.hasNext()){
+            return commandIterator.next();
+        }
+        return null;
     }
 
     public boolean hasNext() {
-        return programCounter + 2 < program.length();
+        return commandIterator.hasNext();
     }
 }
