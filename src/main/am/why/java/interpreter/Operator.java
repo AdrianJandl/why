@@ -28,7 +28,7 @@ public enum Operator {
     public UnaryOperator<Object> getUnaryOperator() {
         switch (this) {
             case S:
-                return i -> ((Integer) i) * ((Integer) i);
+                return i -> Integer.parseInt(String.valueOf(i)) * Integer.parseInt(String.valueOf(i));
             case l:
                 return s -> ((String) s).toLowerCase();
             case I:
