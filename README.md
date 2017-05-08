@@ -20,7 +20,7 @@ YTho (*why though*) is a golfing language written as part of the Abstract Machin
   * s turns on strict mode for the following selector
   * n is a number 1-9 inclusive
   * selects the n'th element
-* [1-9]
+* **[1-9]**
   * selects every n'th element
 * **n**
   * negative integers
