@@ -36,7 +36,13 @@ public enum Operator {
                     }
                 };
             case l:
-                return s -> ((String) s).toLowerCase();
+                return s -> {
+                    try {
+                        return ((String) s).toLowerCase();
+                    } catch (Exception e) {
+                        return s;
+                    }
+                };
             case I:
                 return i -> {
                     try {
@@ -54,7 +60,7 @@ public enum Operator {
                     }
                 };
             case P:
-                return s -> isPalindrome(((String) s));
+                return s -> isPalindrome((String.valueOf(s)));
             case r:
                 return s -> new StringBuilder(String.valueOf(s)).reverse().toString();
             case f:
@@ -87,7 +93,16 @@ public enum Operator {
             Integer myInt = Integer.parseInt(String.valueOf(s));
             return Integer.toString(myInt, 2);
         } catch (NumberFormatException e) {
-            return BitSet.valueOf(String.valueOf(s).getBytes()).toString();
+            byte[] bytes = ((String) s).getBytes();
+            StringBuilder binary = new StringBuilder();
+            for (byte b : bytes) {
+                int val = b;
+                for (int i = 0; i < 8; i++) {
+                    binary.append((val & 128) == 0 ? 0 : 1);
+                    val <<= 1;
+                }
+            }
+            return binary.toString();
         }
     }
 
