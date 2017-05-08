@@ -72,6 +72,11 @@ YTho (*why though*) is a golfing language written as part of the Abstract Machin
   * multiply
 * /
   * divide
+* T
+  * Adds milliseconds since epoch to storage
+* t
+  * Adds the current date to storage
+*
   
 To come: Atbash alphabet(Atbash cypher)
 Possible changes: group commands
