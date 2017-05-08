@@ -41,8 +41,8 @@ public class InterpreterTest {
         Interpreter interpreter = new Interpreter(yScanner, "hello,world,this,cattac,doggod,testing,testset", false);
         interpreter.interpret();
         String results[] = {"false", "false", "false", "true", "true", "false", "true"};
-        for (int i = 0; i < interpreter.getStorage().getStorage().length; i++) {
-            assertEquals(results[i], interpreter.getStorage().getStorage()[i]);
+        for (int i = 0; i < interpreter.getStorage().getArray().length; i++) {
+            assertEquals(results[i], interpreter.getStorage().getArray()[i]);
         }
     }
 
@@ -54,8 +54,8 @@ public class InterpreterTest {
         Interpreter interpreter = new Interpreter(yScanner, "1,4,15,128,241,30", false);
         interpreter.interpret();
         String results[] = {"1", "100", "1111", "10000000", "11110001", "11110"};
-        for (int i = 0; i < interpreter.getStorage().getStorage().length; i++) {
-            assertEquals(results[i], interpreter.getStorage().getStorage()[i]);
+        for (int i = 0; i < interpreter.getStorage().getArray().length; i++) {
+            assertEquals(results[i], interpreter.getStorage().getArray()[i]);
         }
     }
 }
