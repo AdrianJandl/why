@@ -22,7 +22,7 @@ YTho (*why though*) is a golfing language written as part of the Abstract Machin
   * negative integers
 * **p**
   * positive integers
-* !x
+* **!x**
   * ! turns on "all but" mode for the following selector
   * x can be any selector
 * ln
