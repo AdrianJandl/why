@@ -1,10 +1,7 @@
 package am.why.java;
 
 
-import am.why.java.interpreter.Command;
-import am.why.java.interpreter.Interpreter;
-import am.why.java.interpreter.Operator;
-import am.why.java.interpreter.Selector;
+import am.why.java.interpreter.*;
 import am.why.java.scanner.YScanner;
 import org.junit.Test;
 
@@ -57,10 +54,5 @@ public class InterpreterTest {
         for (int i = 0; i < interpreter.getStorage().getStorage().length; i++) {
             assertEquals(results[i], interpreter.getStorage().getStorage()[i]);
         }
-    }
-
-    @Test
-    public void testAllButSelector() {
-        // TODO write test for all but selector
     }
 }
