@@ -28,13 +28,31 @@ public enum Operator {
     public UnaryOperator<Object> getUnaryOperator() {
         switch (this) {
             case S:
-                return i -> Integer.parseInt(String.valueOf(i)) * Integer.parseInt(String.valueOf(i));
+                return i -> {
+                    try {
+                        return Integer.parseInt(String.valueOf(i)) * Integer.parseInt(String.valueOf(i));
+                    } catch (NumberFormatException e) {
+                        return i;
+                    }
+                };
             case l:
                 return s -> ((String) s).toLowerCase();
             case I:
-                return i -> Integer.parseInt(String.valueOf(i)) + 1;
+                return i -> {
+                    try {
+                        return Integer.parseInt(String.valueOf(i)) + 1;
+                    } catch (NumberFormatException e) {
+                        return i;
+                    }
+                };
             case U:
-                return s -> ((String) s).toUpperCase();
+                return s -> {
+                    try {
+                        return ((String) s).toUpperCase();
+                    } catch (Exception e) {
+                        return s;
+                    }
+                };
             case P:
                 return s -> isPalindrome(((String) s));
             case r:
@@ -44,7 +62,13 @@ public enum Operator {
             case b:
                 return s -> getBits(s);
             case D:
-                return s -> Integer.parseInt(String.valueOf(s)) - 1;
+                return s -> {
+                    try {
+                        return Integer.parseInt(String.valueOf(s)) - 1;
+                    } catch (NumberFormatException e) {
+                        return s;
+                    }
+                };
             case c:
             case C:
             case h:
