@@ -44,7 +44,7 @@ public enum Selector {
             case E:
                 return s -> Integer.parseInt(String.valueOf(s)) % 2 == 0;
             case O:
-                return i -> ((Integer) i) % 2 == 1;
+                return s -> Integer.parseInt(String.valueOf(s)) % 2 == 1;
             case _1:
             case _2:
             case _3:
