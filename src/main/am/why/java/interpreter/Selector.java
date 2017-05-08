@@ -32,15 +32,15 @@ public enum Selector {
     public Predicate<Object> getPredicate() {
         switch (this) {
             case n:
-                return i -> ((Integer) i) < 0;
+                return s -> Integer.parseInt(String.valueOf(s)) < 0;
             case p:
-                return i -> ((Integer) i) > 0;
+                return s -> Integer.parseInt(String.valueOf(s)) > 0;
             case o:
-                return i -> ((Integer) i) % 2 != 0;
+                return s -> Integer.parseInt(String.valueOf(s)) % 2 != 0;
             case e:
-                return i -> ((Integer) i) % 2 == 0;
+                return s -> Integer.parseInt(String.valueOf(s)) % 2 == 0;
             case _0:
-                return i -> true;
+                return s -> true;
             case E:
                 return s -> Integer.parseInt(String.valueOf(s)) % 2 == 0;
             case O:
