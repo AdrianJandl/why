@@ -42,7 +42,7 @@ public enum Selector {
                 return i -> true;
             case not:
                 // TODO
-                return (i -> ((Predicate) i).negate());
+                //return (i -> ((Predicate) i).negate());
             case _1:
             case _2:
             case _3:

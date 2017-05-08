@@ -36,6 +36,8 @@ public class Interpreter {
                     break;
                 case not:
                     // TODO get 2 selector parts
+                    // suggestion: half step in scanner
+                    // regular doOperator with newly merged selector
                     break;
                 default:
                     doOperator(next.getSelector().getPredicate(), next.getOperator());

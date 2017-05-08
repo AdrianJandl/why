@@ -12,6 +12,7 @@ import java.util.Arrays;
 public class YScanner {
     private int programCounter;
     private String program;
+    private boolean syntaxChecked = false;
 
     private YScanner() {
         programCounter = 0;
@@ -23,6 +24,9 @@ public class YScanner {
     }
 
     public boolean checkSyntax() {
+        if (syntaxChecked) {
+            throw new YException("Illegal duplicate call to checkSyntax!");
+        }
         char a[] = program.toCharArray();
         for (int i = 0; i < a.length; i++) {
             ControlSelector controlSelector = null;
@@ -38,6 +42,8 @@ public class YScanner {
                 if (controlSelector != null) {
                     if (!Arrays.asList(controlSelector.getFollowedBy()).contains(selector)) {
                         throw new YException("Syntax error. Control Selector followed by unallowed Selector at index [" + i + "] in \"" + program + "\"");
+                    } else {
+                        // TODO implement array for selector and operator tracking
                     }
                 }
                 Operator operators = Operator.from(a[i]);
@@ -45,6 +51,7 @@ public class YScanner {
                 throw new YException("Syntax error at index [" + i + "] in \"" + program + "\"");
             }
         }
+        syntaxChecked = true;
         return true;
     }
 

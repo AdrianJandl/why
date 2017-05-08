@@ -61,6 +61,6 @@ public class InterpreterTest {
 
     @Test
     public void testAllButSelector() {
-        
+        // TODO write test for all but selector
     }
 }
