@@ -1,15 +1,18 @@
 package am.why.java.interpreter;
 
 import am.why.java.exception.YException;
+import javafx.util.converter.LocalDateStringConverter;
 
+import java.time.LocalDate;
 import java.util.BitSet;
+import java.util.Date;
 import java.util.function.UnaryOperator;
 
 /**
  * Created by Adrian on 21-Apr-17.
  */
 public enum Operator {
-    S('S'), I('I'), P('P'), U('U'), l('l'), C('C'), f('f'), c('c'), r('r'), pow('^'), b('b'), h('h'), plus('+'), minus('-'), mult('*'), div('/'), D('D');
+    S('S'), I('I'), P('P'), U('U'), l('l'), C('C'), f('f'), c('c'), r('r'), pow('^'), b('b'), h('h'), plus('+'), minus('-'), mult('*'), div('/'), D('D'), T('T'), t('t');
     private final char aChar;
 
     Operator(char aChar) {
@@ -75,6 +78,10 @@ public enum Operator {
                         return s;
                     }
                 };
+            case T:
+                return s -> System.currentTimeMillis();
+            case t:
+                return s -> LocalDate.now().toString();
             case c:
             case C:
             case h:
@@ -83,6 +90,7 @@ public enum Operator {
             case pow:
             case plus:
             case minus:
+
             default:
                 throw new YException("METHOD STUB! \"" + this + "\" NOT YET IMPLEMENTED");
         }
