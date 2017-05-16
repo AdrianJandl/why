@@ -1,11 +1,12 @@
 package am.why.java.interpreter;
 
+import javax.swing.plaf.nimbus.State;
 import java.util.Objects;
 
 /**
  * Created by Adrian on 12-Apr-17.
  */
-public class Command {
+public class Command extends Statement {
     private Selector selector;
     private ControlSelector controlSelector;
     private Operator operator;
@@ -48,5 +49,10 @@ public class Command {
 
     public ControlSelector getControlSelector() {
         return controlSelector;
+    }
+
+    @Override
+    public Type getType() {
+        return Type.COMMAND;
     }
 }

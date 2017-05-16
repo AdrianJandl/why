@@ -1,6 +1,7 @@
 package am.why.java;
 
 
+import am.why.java.interpreter.Statement;
 import org.junit.Test;
 
 import am.why.java.exception.YException;
@@ -20,10 +21,10 @@ public class YScannerTest {
     public void testGetNextCommand() {
         YScanner x = new YScanner("oSeI");
         x.checkSyntax();
-        Command first = x.getNextCommand();
+        Statement first = x.getNextCommand();
         assertEquals(Selector.o, first.getSelector());
         assertEquals(Operator.S, first.getOperator());
-        Command second = x.getNextCommand();
+        Statement second = x.getNextCommand();
         assertEquals(Selector.e, second.getSelector());
         assertEquals(Operator.I, second.getOperator());
     }
