@@ -15,12 +15,14 @@ import java.util.List;
 public class YScanner {
     private String program;
     private boolean syntaxChecked = false;
-    private List<Command> commandList;
-    private Iterator<Command> commandIterator;
+    private List<Statement> commandList;
+    private Iterator<Statement> commandIterator;
+    private int bracketCounter;
 
     public YScanner(String program) {
         this.program = program;
         commandList = new ArrayList<>();
+        bracketCounter = 0;
     }
 
     public boolean checkSyntax() {
@@ -29,6 +31,26 @@ public class YScanner {
         }
         char a[] = program.toCharArray();
         for (int i = 0; i < a.length; i++) {
+            Special special = null;
+            try {
+                special = Special.from(a[i]);
+                if (special == Special.OPEN_BRACKET) {
+                    bracketCounter++;
+                    commandList.add(new Control(Special.OPEN_BRACKET));
+                } else if (special == Special.CLOSED_BRACKET) {
+                    bracketCounter--;
+                    commandList.add(new Control(Special.CLOSED_BRACKET));
+                }
+                if (bracketCounter < 0) {
+                    throw new YException("Syntax error at index [" + i + "]. Unexpected character ')'");
+                }
+                i++;
+            } catch (Exception e) {
+                //swallow this - this only means that current is no Special
+            }
+            if (i>=a.length){
+                break;
+            }
             ControlSelector controlSelector = null;
             try {
                 controlSelector = ControlSelector.from(a[i]);
@@ -52,11 +74,14 @@ public class YScanner {
         }
         commandIterator = commandList.iterator();
         syntaxChecked = true;
+        if (bracketCounter != 0) { //TODO should we auto-close brackets to save bytes in programs?
+            throw new YException("Syntax error. Unclosed parantheses.");
+        }
         return true;
     }
 
-    public Command getNextCommand() {
-        if (commandIterator.hasNext()){
+    public Statement getNextCommand() {
+        if (commandIterator.hasNext()) {
             return commandIterator.next();
         }
         return null;

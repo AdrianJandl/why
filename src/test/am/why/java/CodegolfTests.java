@@ -14,7 +14,7 @@ public class CodegolfTests {
 
     @Test
     public void swapTheParity() { //https://codegolf.stackexchange.com/questions/118819/swap-the-parity
-        YScanner yScanner = new YScanner("EDOI");
+        YScanner yScanner = new YScanner("(EDOI)");
         assertEquals(true, yScanner.checkSyntax());
         Interpreter interpreter = new Interpreter(yScanner, "1,2,3,4,5,6,7,8,313,314", true);
         interpreter.interpret();
@@ -23,7 +23,7 @@ public class CodegolfTests {
             System.out.println(s);
         }
         for (int i = 0; i < result.length; i++) {
-            //assertEquals(result[i], interpreter.getStorage().getArray()[i]);
+            assertEquals(result[i], interpreter.getStorage().getArray()[i]);
         }
     }
 
