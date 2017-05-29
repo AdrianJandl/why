@@ -3,7 +3,7 @@ package am.why.java.interpreter;
 /**
  * Created by Adrian on 16.05.2017.
  */
-public class Control extends Statement {
+public class Control {
     private Special special;
 
     public Control(Special special) {
@@ -14,8 +14,4 @@ public class Control extends Statement {
         return special;
     }
 
-    @Override
-    public Type getType() {
-        return Type.CONTROL;
-    }
 }

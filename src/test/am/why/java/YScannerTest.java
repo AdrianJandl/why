@@ -1,30 +1,34 @@
 package am.why.java;
 
 
-import am.why.java.interpreter.Statement;
-import org.junit.Test;
+import am.why.java.interpreter.Step;
 
 import am.why.java.exception.YException;
 import am.why.java.interpreter.Command;
 import am.why.java.interpreter.Operator;
 import am.why.java.interpreter.Selector;
 import am.why.java.scanner.YScanner;
+import com.sun.org.apache.bcel.internal.generic.Select;
+import org.testng.annotations.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.testng.AssertJUnit.assertEquals;
 
 /**
  * Created by Adrian on 12-Apr-17.
  */
 public class YScannerTest {
 
-    @Test
+    /*@Test
     public void testGetNextCommand() {
         YScanner x = new YScanner("oSeI");
         x.checkSyntax();
-        Statement first = x.getNextCommand();
+        x.newParse();
+        Step firstStep = x.getNextStep();
+        assertEquals(2, firstStep.getCommands().size());
+        Command first = firstStep.getCommands().get(0);
         assertEquals(Selector.o, first.getSelector());
         assertEquals(Operator.S, first.getOperator());
-        Statement second = x.getNextCommand();
+        Command second = firstStep.getCommands().get(1);
         assertEquals(Selector.e, second.getSelector());
         assertEquals(Operator.I, second.getOperator());
     }
@@ -69,6 +73,35 @@ public class YScannerTest {
         String input = "LNS";
         YScanner yScanner = new YScanner(input);
         yScanner.checkSyntax();
+    }*/
+
+    @Test
+    public void testStepsClosedBrackets() {
+        String input = "(OI(OS))";
+        YScanner yScanner = new YScanner(input);
+        yScanner.newParse();
+        Step first = yScanner.getNextStep();
+        Step firstExpected = new Step();
+        firstExpected.addCommand(new Command(null, Selector.O, Operator.S));
+        assertEquals(firstExpected, first);
+        Step second = yScanner.getNextStep();
+        Step secondExpected = new Step();
+        secondExpected.addCommand(new Command(null, Selector.O, Operator.I));
+        assertEquals(secondExpected, second);
     }
 
+    @Test
+    public void testStepsOpenedBrackets() {
+        String input = "(OI(OS";
+        YScanner yScanner = new YScanner(input);
+        yScanner.newParse();
+        Step first = yScanner.getNextStep();
+        Step firstExpected = new Step();
+        firstExpected.addCommand(new Command(null, Selector.O, Operator.S));
+        assertEquals(firstExpected, first);
+        Step second = yScanner.getNextStep();
+        Step secondExpected = new Step();
+        secondExpected.addCommand(new Command(null, Selector.O, Operator.I));
+        assertEquals(secondExpected, second);
+    }
 }

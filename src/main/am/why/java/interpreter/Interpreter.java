@@ -32,10 +32,9 @@ public class Interpreter {
     public void interpret() {
         boolean collect = false;
         List<Command> commands = new ArrayList<>();
-        while (yScanner.hasNext()) {
-            Statement statement = yScanner.getNextCommand();
-            if (statement.getType() == Type.COMMAND) {
-                Command next = (Command) statement;
+        while (yScanner.hasNext()) { //iterate over steps
+            Step statement = yScanner.getNextStep();
+            for (Command next : statement.getCommands()) {
                 if (collect) {
                     commands.add(next); //TODO history fix?
                     continue;
@@ -58,33 +57,31 @@ public class Interpreter {
                 if (debug) {
                     history.add(storage.toString());
                 }
-            } else if (statement.getType() == Type.CONTROL) {
-                Control control = (Control) statement;
-                if (control.getSpecial() == Special.OPEN_BRACKET) {
-                    collect = true;
-                } else if (control.getSpecial() == Special.CLOSED_BRACKET) {
-                    collect = false;
-                    Map<Command, List<Integer>> commandListMap = new HashMap<>();
-                    for (Command command : commands) {
-                        List<Integer> indices = new ArrayList<>();
-                        for (int i = 0; i < storage.getArray().length; i++) {
-                            if (command.getSelector().getPredicate().test(storage.getArray()[i])) {
-                                indices.add(i);
-                            }
+            }
+            Control control = new Control(Special.CLOSED_BRACKET);
+            if (control.getSpecial() == Special.OPEN_BRACKET) {
+                collect = true;
+            } else if (control.getSpecial() == Special.CLOSED_BRACKET) {
+                collect = false;
+                Map<Command, List<Integer>> commandListMap = new HashMap<>();
+                for (Command command : commands) {
+                    List<Integer> indices = new ArrayList<>();
+                    for (int i = 0; i < storage.getArray().length; i++) {
+                        if (command.getSelector().getPredicate().test(storage.getArray()[i])) {
+                            indices.add(i);
                         }
-                        commandListMap.put(command, indices);
                     }
-                    for (Map.Entry<Command, List<Integer>> entry : commandListMap.entrySet()) {
-                        for (Integer integer : entry.getValue()) {
-                            storage.getArray()[integer] = String.valueOf(entry.getKey().getOperator().getUnaryOperator().apply(storage.getArray()[integer]));
-                        }
+                    commandListMap.put(command, indices);
+                }
+                for (Map.Entry<Command, List<Integer>> entry : commandListMap.entrySet()) {
+                    for (Integer integer : entry.getValue()) {
+                        storage.getArray()[integer] = String.valueOf(entry.getKey().getOperator().getUnaryOperator().apply(storage.getArray()[integer]));
                     }
                 }
-            } else {
-                throw new YException("Unknown Statement type.");
             }
         }
     }
+
 
     private void doIndexOperator(Predicate<Object> predicate, Operator operator) {
         for (int i = 0; i < storage.getArray().length; i++) {

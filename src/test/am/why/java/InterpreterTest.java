@@ -3,20 +3,17 @@ package am.why.java;
 
 import am.why.java.interpreter.*;
 import am.why.java.scanner.YScanner;
-import org.junit.Test;
+import org.testng.annotations.Test;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
 /**
  * Created by Adrian on 26.04.2017.
  */
 public class InterpreterTest {
-
+/*
     @Test
     public void testDebug() {
         YScanner yScanner = mock(YScanner.class);
@@ -54,5 +51,5 @@ public class InterpreterTest {
         for (int i = 0; i < interpreter.getStorage().getArray().length; i++) {
             assertEquals(results[i], interpreter.getStorage().getArray()[i]);
         }
-    }
+    }*/
 }

@@ -2,10 +2,9 @@ package am.why.java;
 
 import am.why.java.interpreter.Interpreter;
 import am.why.java.scanner.YScanner;
-import org.junit.Test;
+import org.testng.annotations.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.testng.AssertJUnit.assertEquals;
 
 /**
  * Created by Adrian on 05.05.2017.
