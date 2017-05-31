@@ -3,9 +3,9 @@ package am.why.java;
 
 import am.why.java.input.InputConverter;
 import am.why.java.storage.Storage;
-import org.testng.annotations.Test;
+import org.junit.Test;
 
-import static org.testng.AssertJUnit.assertEquals;
+import static org.junit.Assert.assertEquals;
 
 
 /**

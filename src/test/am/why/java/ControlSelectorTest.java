@@ -2,14 +2,14 @@ package am.why.java;
 
 import am.why.java.interpreter.ControlSelector;
 import am.why.java.interpreter.Selector;
-import org.testng.annotations.Test;
+import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-import static org.testng.AssertJUnit.assertEquals;
+import static org.junit.Assert.assertEquals;
 
 
 /**

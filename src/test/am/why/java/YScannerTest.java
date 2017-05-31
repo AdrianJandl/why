@@ -8,17 +8,16 @@ import am.why.java.interpreter.Command;
 import am.why.java.interpreter.Operator;
 import am.why.java.interpreter.Selector;
 import am.why.java.scanner.YScanner;
-import com.sun.org.apache.bcel.internal.generic.Select;
-import org.testng.annotations.Test;
+import org.junit.Test;
 
-import static org.testng.AssertJUnit.assertEquals;
+import static org.junit.Assert.assertEquals;
 
 /**
  * Created by Adrian on 12-Apr-17.
  */
 public class YScannerTest {
 
-    /*@Test
+    @Test
     public void testGetNextCommand() {
         YScanner x = new YScanner("oSeI");
         x.checkSyntax();
@@ -73,7 +72,7 @@ public class YScannerTest {
         String input = "LNS";
         YScanner yScanner = new YScanner(input);
         yScanner.checkSyntax();
-    }*/
+    }
 
     @Test
     public void testStepsClosedBrackets() {

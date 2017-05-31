@@ -1,10 +1,10 @@
 package am.why.java;
 
 import am.why.java.interpreter.Selector;
-import org.testng.annotations.Test;
+import org.junit.Test;
 
-import static org.testng.AssertJUnit.assertFalse;
-import static org.testng.AssertJUnit.assertTrue;
+import static junit.framework.TestCase.assertTrue;
+import static org.junit.Assert.assertFalse;
 
 /**
  * Created by Adrian on 08.05.2017.

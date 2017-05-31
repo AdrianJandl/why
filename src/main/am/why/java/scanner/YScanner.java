@@ -27,7 +27,9 @@ public class YScanner {
 
     public void newParse() {
         Step step = startScanner(0);
-        steps.add(step);
+        if (!(step.getCommands().size() == 0)) {
+            steps.add(step);
+        }
         stepIterator = steps.iterator();
     }
 
@@ -45,6 +47,7 @@ public class YScanner {
                     i++;
                     Step step = startScanner(i);
                     if (step != null) {
+                        step.setSerial(false);
                         steps.add(step);
                         //i += step.getSize();
                         for (Step tmp : steps) {

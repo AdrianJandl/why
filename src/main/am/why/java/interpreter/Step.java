@@ -9,6 +9,7 @@ import java.util.List;
 public class Step {
     private List<Command> commands;
     private int size = 0;
+    private boolean serial = true;
 
     public Step(List<Command> commands) {
         this.commands = commands;
@@ -59,5 +60,13 @@ public class Step {
 
     public int getSize() {
         return size;
+    }
+
+    public boolean isSerial() {
+        return serial;
+    }
+
+    public void setSerial(boolean serial) {
+        this.serial = serial;
     }
 }

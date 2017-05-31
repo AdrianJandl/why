@@ -1,9 +1,9 @@
 package am.why.java;
 
 import am.why.java.interpreter.Operator;
-import org.testng.annotations.Test;
+import org.junit.Test;
 
-import static org.testng.AssertJUnit.assertEquals;
+import static org.junit.Assert.assertEquals;
 
 /**
  * Created by michi on 08/05/2017.
