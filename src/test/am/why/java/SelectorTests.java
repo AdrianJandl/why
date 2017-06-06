@@ -3,8 +3,8 @@ package am.why.java;
 import am.why.java.interpreter.Selector;
 import org.junit.Test;
 
+import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
 
 /**
  * Created by Adrian on 08.05.2017.

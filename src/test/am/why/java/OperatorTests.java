@@ -20,6 +20,7 @@ public class OperatorTests {
             assertEquals(expected[i], operator.getUnaryOperator().apply(input[i]));
         }
     }
+
     @Test
     public void test_I() {
         Object[] input = {1, 3, 6, "foo", 4, "bar"};
@@ -30,6 +31,7 @@ public class OperatorTests {
             assertEquals(expected[i], operator.getUnaryOperator().apply(input[i]));
         }
     }
+
     @Test
     public void test_D() {
         Object[] input = {1, 3, 6, "foo", 4, "bar"};
@@ -40,6 +42,7 @@ public class OperatorTests {
             assertEquals(expected[i], operator.getUnaryOperator().apply(input[i]));
         }
     }
+
     @Test
     public void test_b() {
         Object[] input = {1, 3, 6, "f", 4, "b"};
@@ -72,6 +75,7 @@ public class OperatorTests {
             assertEquals(expected[i], operator.getUnaryOperator().apply(input[i]));
         }
     }
+
     @Test
     public void test_U() {
         Object[] input = {10, 34, 61, "foo", 4, "BaR"};
@@ -81,7 +85,9 @@ public class OperatorTests {
         for (int i = 0; i < input.length; i++) {
             assertEquals(expected[i], operator.getUnaryOperator().apply(input[i]));
         }
-    }@Test
+    }
+
+    @Test
     public void test_l() {
         Object[] input = {10, 34, 61, "FOO", 4, "bAr"};
         Object[] expected = {10, 34, 61, "foo", 4, "bar"};
