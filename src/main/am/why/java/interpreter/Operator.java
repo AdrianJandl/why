@@ -1,8 +1,10 @@
 package am.why.java.interpreter;
 
 import am.why.java.exception.YException;
+import javafx.util.converter.BigDecimalStringConverter;
 import javafx.util.converter.LocalDateStringConverter;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.BitSet;
 import java.util.Date;
@@ -66,8 +68,6 @@ public enum Operator {
 				return s -> isPalindrome((String.valueOf(s)));
 			case r:
 				return s -> new StringBuilder(String.valueOf(s)).reverse().toString();
-			case f:
-				return s -> ""; //FIXME do we change datatype from int to Double/BigDecimal? edit 5.5. mkrejci -> we definitely should
 			case b:
 				return this::getBits;
 			case D:
@@ -86,7 +86,19 @@ public enum Operator {
 				return this::changeCase;
 			case p:
 				return this::isPrime;
+			case f:
 			case c:
+				return i -> {
+					try {
+						BigDecimalStringConverter bigDecimalStringConverter = new BigDecimalStringConverter();
+						BigDecimal bd = bigDecimalStringConverter.fromString(String.valueOf(i));
+
+						return this==f ? Math.floor(bd.doubleValue()) : Math.ceil(bd.doubleValue());
+					} catch (NumberFormatException e) {
+						return i;
+					}
+				};
+			//return s -> ""; //FIXME do we change datatype from int to Double/BigDecimal? edit 5.5. mkrejci -> we definitely should
 			case h:
 			case div:
 			case mult:
