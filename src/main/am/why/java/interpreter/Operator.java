@@ -69,7 +69,7 @@ public enum Operator {
 			case f:
 				return s -> ""; //FIXME do we change datatype from int to Double/BigDecimal? edit 5.5. mkrejci -> we definitely should
 			case b:
-				return s -> getBits(s);
+				return this::getBits;
 			case D:
 				return s -> {
 					try {
@@ -83,9 +83,9 @@ public enum Operator {
 			case t:
 				return s -> LocalDate.now().toString();
 			case C:
-				return s -> changeCase(s);
+				return this::changeCase;
 			case p:
-				return s -> isPrime(s);
+				return this::isPrime;
 			case c:
 			case h:
 			case div:
