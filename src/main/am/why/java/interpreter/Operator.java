@@ -5,6 +5,7 @@ import javafx.util.converter.BigDecimalStringConverter;
 import javafx.util.converter.LocalDateStringConverter;
 
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.time.LocalDate;
 import java.util.BitSet;
 import java.util.Date;
@@ -100,14 +101,24 @@ public enum Operator {
 				};
 			//return s -> ""; //FIXME do we change datatype from int to Double/BigDecimal? edit 5.5. mkrejci -> we definitely should
 			case h:
-			case div:
+				return this::getHexRepresentation;
 			case mult:
-			case pow:
 			case plus:
+			case pow:
+			case div:
 			case minus:
 
 			default:
 				throw new YException("METHOD STUB! \"" + this + "\" NOT YET IMPLEMENTED");
+		}
+	}
+
+	private Object getHexRepresentation(Object s) {
+		try {
+			Integer myInt = Integer.parseInt(String.valueOf(s));
+			return Integer.toString(myInt, 16);
+		} catch (NumberFormatException e) {
+			return String.format("%040x", new BigInteger(1, ((String) s).getBytes(/*YOUR_CHARSET?*/)));
 		}
 	}
 

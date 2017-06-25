@@ -62,7 +62,7 @@ YTho (*why though*) is a golfing language written as part of the Abstract Machin
   * n is number 1-9 inclusive
 * **b**
   * converts each element to its binary representation
-* h
+* **h**
   * converts each element to its hex representation
 * \+
   * add/concat
