@@ -82,68 +82,14 @@ public class YScanner {
 					}
 				}
 				Operator operators = Operator.from(a[i]);
-				//steps.add(new Command(controlSelector, selector, operators));
+				//steps.add(new Command(controlSelector, selector, operators));		// FIXME what should this line do?
+
 				current.addCommand(new Command(controlSelector, selector, operators));
 			} catch (IllegalArgumentException o_O) {
 				throw new YException("Syntax error at index [" + i + "] in \"" + program + "\"");
 			}
 		}
 		return current; //TODO does this mean the bracket wasn't closed?
-	}
-
-	public boolean checkSyntax() {
-		if (syntaxChecked) {
-			throw new YException("Illegal duplicate call to checkSyntax!");
-		}
-		char a[] = program.toCharArray();
-		for (int i = 0; i < a.length; i++) {
-			Special special;
-			Step step = null;
-			try {
-				special = Special.from(a[i]);
-				if (special == Special.OPEN_BRACKET) {
-					bracketCounter++;
-					//steps.add(new Control(Special.OPEN_BRACKET));
-					//TODO new step
-				} else if (special == Special.CLOSED_BRACKET) {
-					bracketCounter--;
-					//steps.add(new Control(Special.CLOSED_BRACKET));
-					//TODO finish step
-				}
-				if (bracketCounter < 0) {
-					throw new YException("Syntax error at index [" + i + "]. Unexpected character ')'");
-				}
-				i++;
-			} catch (Exception e) {
-				//swallow this - this only means that current is no Special
-			}
-			if (i >= a.length) {
-				break;
-			}
-			ControlSelector controlSelector = null;
-			try {
-				controlSelector = ControlSelector.from(a[i]);
-				i++;
-			} catch (Exception e) {
-				//swallow this - this only means that current is no ControlSelector
-			}
-			try {
-				Selector selector = Selector.from(a[i]);
-				i++;
-				if (controlSelector != null) {
-					if (!Arrays.asList(controlSelector.getFollowedBy()).contains(selector)) {
-						throw new YException("Syntax error. Control Selector followed by unallowed Selector at index [" + i + "] in \"" + program + "\"");
-					}
-				}
-				Operator operators = Operator.from(a[i]);
-				//steps.add(new Command(controlSelector, selector, operators));
-			} catch (IllegalArgumentException o_O) {
-				throw new YException("Syntax error at index [" + i + "] in \"" + program + "\"");
-			}
-		}
-		stepIterator = steps.iterator();
-		syntaxChecked = true;
-		return true;
 	}
 
 	public Step getNextStep() {

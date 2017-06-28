@@ -20,7 +20,7 @@ public class YScannerTest {
     @Test
     public void testGetNextCommand() {
         YScanner x = new YScanner("oSeI");
-        x.checkSyntax();
+        x.newParse();
         x.newParse();
         Step firstStep = x.getNextStep();
         assertEquals(2, firstStep.getCommands().size());
@@ -36,42 +36,40 @@ public class YScannerTest {
     public void strictFollowedByForbiddenSelector() {
         String input = "seI";
         YScanner yScanner = new YScanner(input);
-        yScanner.checkSyntax();
+        yScanner.newParse();
     }
 
     @Test
     public void strictFollowedByAllowed() {
         String input = "s3I";
         YScanner yScanner = new YScanner(input);
-        assertEquals(true, yScanner.checkSyntax());
+
     }
 
     @Test
     public void lengthShorterThanFollowedByAllowed() {
         String input = "l3S";
         YScanner yScanner = new YScanner(input);
-        assertEquals(true, yScanner.checkSyntax());
     }
 
     @Test(expected = YException.class)
     public void lengthShorterThanFollowedByForbidden() {
         String input = "lnS";
         YScanner yScanner = new YScanner(input);
-        yScanner.checkSyntax();
+        yScanner.newParse();
     }
 
     @Test
     public void lengthLongerThanFollowedByAllowed() {
         String input = "L3S";
         YScanner yScanner = new YScanner(input);
-        assertEquals(true, yScanner.checkSyntax());
     }
 
     @Test(expected = YException.class)
     public void lengthLongerThanFollowedByForbidden() {
         String input = "LNS";
         YScanner yScanner = new YScanner(input);
-        yScanner.checkSyntax();
+        yScanner.newParse();
     }
 
     @Test
