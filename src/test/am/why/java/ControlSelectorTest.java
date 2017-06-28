@@ -22,8 +22,8 @@ public class ControlSelectorTest {
     public void testAllButSelector() {
         ControlSelector controlSelector = ControlSelector.exclamation;
         Selector selector = Selector.number; //select all
-        selector.setValue(new BigDecimal(0));
-        Predicate<Object> predicate = controlSelector.modifySelector(selector.getPredicate());
+
+        Predicate<Object> predicate = controlSelector.modifySelector(s -> true);
         List<Object> test = new ArrayList<>();
         test.add("Hello");
         test.add("World!");

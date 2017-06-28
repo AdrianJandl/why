@@ -3,6 +3,8 @@ package am.why.java;
 import am.why.java.interpreter.Operator;
 import org.junit.Test;
 
+import java.math.BigDecimal;
+
 import static org.junit.Assert.assertEquals;
 
 /**
@@ -98,5 +100,42 @@ public class OperatorTests {
         }
     }
 
+    @Test
+    public void test_plus_immediate() {
+        Object[] input = {13, 77, -15, "FOO", 4, "bAr"};
+        Object[] expected = {23, 87, -5, "FOO", 14, "bAr"};
+        Operator operator = Operator.plus;
 
+        for (int i = 0; i < input.length; i++) {
+            Object result = operator.getBinaryOperator().apply(input[i], 10);
+            if (result instanceof BigDecimal) {
+                assertEquals(expected[i], ((BigDecimal) result).intValue());
+            } else {
+                assertEquals(expected[i], result);
+            }
+        }
+    }
+
+    @Test
+    public void test_mult_immediate() {
+        Object[] input = {13, 77, -15, "FOO", 4, "bAr"};
+        Object[] expected = {26, 154, -30, "FOO", 8, "bAr"};
+        Operator operator = Operator.mult;
+
+        for (int i = 0; i < input.length; i++) {
+            Object result = operator.getBinaryOperator().apply(input[i], 2);
+            if (result instanceof BigDecimal) {
+                assertEquals(expected[i], ((BigDecimal) result).intValue());
+            } else {
+                assertEquals(expected[i], result);
+            }
+        }
+    }
+
+    @Test
+    public void test_sum() {
+        // TODO implement sum
+        Object[] input = {13, 77, -15, "FOO", 4, "bAr"};
+        
+    }
 }

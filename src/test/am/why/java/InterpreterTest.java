@@ -38,11 +38,12 @@ public class InterpreterTest {
     @Test
     public void testPalindrome() {
         YScanner yScanner = mock(YScanner.class);
-        List<Command> commands = new ArrayList<>();
+
         Selector selector = Selector.number;
-        selector.setValue( new BigDecimal(0));
-        commands.add(new Command(null, selector, Operator.P));
-        when(yScanner.getNextStep()).thenReturn(new Step(commands));
+        Command command = new Command(null, selector, Operator.P);
+        Step step = new Step();
+        step.addCommand(command, null, new BigDecimal(0));
+        when(yScanner.getNextStep()).thenReturn(step);
         when(yScanner.hasNext()).thenReturn(true, false);
         Interpreter interpreter = new Interpreter(yScanner, "hello,world,this,cattac,doggod,testing,testset", false);
         interpreter.interpret();
@@ -55,11 +56,12 @@ public class InterpreterTest {
     @Test
     public void testBitConvertInts() {
         YScanner yScanner = mock(YScanner.class);
-        List<Command> commands = new ArrayList<>();
+
         Selector selector = Selector.number;
-        selector.setValue( new BigDecimal(0));
-        commands.add(new Command(null, selector, Operator.b));
-        when(yScanner.getNextStep()).thenReturn(new Step(commands));
+        Command command = new Command(null, selector, Operator.b);
+        Step step = new Step();
+        step.addCommand(command, null, new BigDecimal(0));
+        when(yScanner.getNextStep()).thenReturn(step);
         when(yScanner.hasNext()).thenReturn(true, false);
         Interpreter interpreter = new Interpreter(yScanner, "1,4,15,128,241,30", false);
         interpreter.interpret();

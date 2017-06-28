@@ -13,12 +13,6 @@ public enum Selector {
 
     private final char aChar;
 
-    private BigDecimal value;
-
-    public void setValue(BigDecimal value) {
-        this.value = value;
-    }
-
     Selector(char aChar) {
         this.aChar = aChar;
     }
@@ -47,10 +41,11 @@ public enum Selector {
             case e:
                 return s -> Integer.parseInt(String.valueOf(s)) % 2 == 0;
             case number:
-                return s -> {
+                return null;
+                /*s -> {                    //TODO FIXME
                     if (value.compareTo(new BigDecimal(0)) == 0) return true;
                     else return Integer.parseInt(String.valueOf(s)) % value.intValue() == 0;
-                };
+                };*/
             case E:
                 return s -> Integer.parseInt(String.valueOf(s)) % 2 == 0;
             case O:

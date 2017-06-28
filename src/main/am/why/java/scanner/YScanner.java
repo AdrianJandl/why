@@ -74,13 +74,13 @@ public class YScanner {
             }
             try {
                 Selector selector;
+                BigDecimal value = null;
                 if (Character.isDigit(a[i])) {
-                    BigDecimal value = readImmediate(a, i);
-                    while (i < a.length && Character.isDigit(a[i]) || a[i] == '.' || a[i] == '_') {
+                    value = readImmediate(a, i);
+                    while (i < a.length && (Character.isDigit(a[i]) || a[i] == '.' || a[i] == '_')) {
                         i++;
                     }
                     selector = Selector.number;
-                    selector.setValue(value);
                 } else {
                     selector = Selector.from(a[i]);
                     i++;
@@ -94,17 +94,22 @@ public class YScanner {
 
                 Operator operators = Operator.from(a[i]);
                 i++;
+                BigDecimal immediate = null;
                 if (i < a.length && Character.isDigit(a[i])) {
-                    BigDecimal immediate = readImmediate(a, i);
+                    immediate = readImmediate(a, i);
 
-                    while (i < a.length && Character.isDigit(a[i]) || a[i] == '.' || a[i] == '_') {
+                    while (i < a.length && (Character.isDigit(a[i]) || a[i] == '.')) {
                         i++;
                     }
-
+                    if (i < a.length && a[i] == '_') {
+                        i++;
+                    }
                 }
                 //steps.add(new Command(controlSelector, selector, operators));		// FIXME what should this line do?
+
                 i--;
-                current.addCommand(new Command(controlSelector, selector, operators));
+
+                current.addCommand(new Command(controlSelector, selector, operators), immediate, value);
 
             } catch (IllegalArgumentException o_O) {
                 throw new YException("Syntax error at index [" + i + "] in \"" + program + "\"");
@@ -116,7 +121,7 @@ public class YScanner {
     private BigDecimal readImmediate(char[] a, int i) {
         BigDecimal value = new BigDecimal(0);
 
-        while (!Character.isDigit(a[i])) {
+        while (Character.isDigit(a[i])) {
             value = value.multiply(new BigDecimal(10));
             value = value.add(new BigDecimal(Character.digit(a[i], 10)));
             i++;
@@ -127,13 +132,14 @@ public class YScanner {
             }
         }
         if (a[i] == '.') {      // decimal point
-            int b = 1;
+            int b = -1;
             i++;
             BigDecimal decimalValue;
-            while (i < a.length && !Character.isDigit(a[i])) {
+            while (i < a.length && Character.isDigit(a[i])) {
                 decimalValue = new BigDecimal(Character.digit(a[i], 10));
-                value = value.add(decimalValue.divide((new BigDecimal(10)).pow(b), BigDecimal.ROUND_HALF_DOWN));    // rounding mode - nearest neighbour or down if equidistant
+                value = value.add(decimalValue.scaleByPowerOfTen(b));    // rounding mode - nearest neighbour or down if equidistant
                 i++;
+                b--;
             }
         }
 

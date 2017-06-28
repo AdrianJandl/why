@@ -5,14 +5,12 @@ import am.why.java.input.InputConverter;
 import am.why.java.scanner.YScanner;
 import am.why.java.storage.Storage;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.function.BinaryOperator;
-import java.util.function.Function;
-import java.util.function.Predicate;
-import java.util.function.UnaryOperator;
+import java.util.function.*;
 
 /**
  * Created by Adrian on 12-Apr-17.
@@ -76,30 +74,45 @@ public class Interpreter {
                     doIndexOperator(next.getControlSelector() == null
                                     ? next.getSelector().getPredicate()
                                     : next.getControlSelector().modifySelector(next.getSelector().getPredicate()),
-                            next.getOperator());
+                            next.getOperator(), step.getImmediate(next));
+                    break;
+                case number:
+                    Predicate<Object> predicate = s -> {
+                        BigDecimal value = step.getValue(next);
+                        return value.compareTo(new BigDecimal(0)) == 0 || Integer.parseInt(String.valueOf(s)) % value.intValue() == 0;
+                    };
+                    doOperator(next.getControlSelector() == null ?  predicate : next.getControlSelector().modifySelector(predicate), next.getOperator(), step.getImmediate(next));
                     break;
                 default:
                     doOperator(next.getControlSelector() == null
                                     ? next.getSelector().getPredicate()
                                     : next.getControlSelector().modifySelector(next.getSelector().getPredicate()),
-                            next.getOperator());
+                            next.getOperator(), step.getImmediate(next));
             }
         }
     }
 
-    private void doIndexOperator(Predicate<Object> predicate, Operator operator) {
+    private void doIndexOperator(Predicate<Object> predicate, Operator operator, BigDecimal immediate) {
         for (int i = 0; i < storage.getArray().length; i++) {
             if (predicate.test(i)) {
-                storage.getArray()[i] = applyOperator(operator, storage.getArray()[i], null);
+                if (immediate != null) {
+                    storage.getArray()[i] = applyOperator(operator, storage.getArray()[i], immediate.toPlainString());
+                } else {
+                    storage.getArray()[i] = applyOperator(operator, storage.getArray()[i], null);
+                }
             }
         }
     }
 
 
-    private void doOperator(Predicate<Object> predicate, Operator operator) {
+    private void doOperator(Predicate<Object> predicate, Operator operator, BigDecimal immediate) {
         for (int i = 0; i < storage.getArray().length; i++) {
             if (predicate.test(storage.getArray()[i])) {
-                storage.getArray()[i] = applyOperator(operator, storage.getArray()[i], null);
+                if (immediate != null) {
+                    storage.getArray()[i] = applyOperator(operator, storage.getArray()[i], immediate.toPlainString());
+                } else {
+                    storage.getArray()[i] = applyOperator(operator, storage.getArray()[i], null);       // TODO add support for aggregates
+                }
             }
         }
     }
