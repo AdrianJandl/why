@@ -5,6 +5,7 @@ import am.why.java.interpreter.*;
 import am.why.java.scanner.YScanner;
 import org.junit.Test;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,7 +39,9 @@ public class InterpreterTest {
     public void testPalindrome() {
         YScanner yScanner = mock(YScanner.class);
         List<Command> commands = new ArrayList<>();
-        commands.add(new Command(null, Selector._0, Operator.P));
+        Selector selector = Selector.number;
+        selector.setValue( new BigDecimal(0));
+        commands.add(new Command(null, selector, Operator.P));
         when(yScanner.getNextStep()).thenReturn(new Step(commands));
         when(yScanner.hasNext()).thenReturn(true, false);
         Interpreter interpreter = new Interpreter(yScanner, "hello,world,this,cattac,doggod,testing,testset", false);
@@ -53,7 +56,9 @@ public class InterpreterTest {
     public void testBitConvertInts() {
         YScanner yScanner = mock(YScanner.class);
         List<Command> commands = new ArrayList<>();
-        commands.add(new Command(null, Selector._0, Operator.b));
+        Selector selector = Selector.number;
+        selector.setValue( new BigDecimal(0));
+        commands.add(new Command(null, selector, Operator.b));
         when(yScanner.getNextStep()).thenReturn(new Step(commands));
         when(yScanner.hasNext()).thenReturn(true, false);
         Interpreter interpreter = new Interpreter(yScanner, "1,4,15,128,241,30", false);

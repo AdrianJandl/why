@@ -3,6 +3,8 @@ package am.why.java;
 import am.why.java.interpreter.Selector;
 import org.junit.Test;
 
+import java.math.BigDecimal;
+
 import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertFalse;
 
@@ -50,7 +52,8 @@ public class SelectorTests {
     public void test_0() {
         String p = "-3";
         String n = "4";
-        Selector selector = Selector._0;
+        Selector selector = Selector.number;
+        selector.setValue(new BigDecimal(0));
         assertTrue(selector.getPredicate().test(p));
         assertTrue(selector.getPredicate().test(n));
     }

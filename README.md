@@ -6,8 +6,8 @@ YTho (*why though*) is a golfing language written as part of the Abstract Machin
 ## Special characters:
 * _
   * Explicitely Indicates the end of an immediate value
-* [0-9]\*
-  * immediate value, ends on first character that is NaN
+* [0-9]\+
+  * immediate value, ends on first character that is NaN (except '.' - decimal point)
 * **(**
   * starts parallel mode - all instructions afterwards are executed on the same set of inputs
 * **)**

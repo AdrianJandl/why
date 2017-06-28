@@ -16,6 +16,8 @@ public enum Operator {
     S('S'), I('I'), P('P'), U('U'), l('l'), C('C'), f('f'), c('c'), r('r'), pow('^'), b('b'), h('h'), plus('+'), minus('-'), mult('*'), div('/'), D('D'), T('T'), t('t'), p('p');
     private final char aChar;
 
+    private BigDecimal immediate = null;
+
     BigDecimalStringConverter bigDecimalStringConverter = new BigDecimalStringConverter();
 
     Operator(char aChar) {
@@ -102,11 +104,45 @@ public enum Operator {
             case h:
                 return this::getHexRepresentation;
             case plus:
+                return s -> {
+                    try {
+                        return immediate != null ? immediate.add(new BigDecimal(String.valueOf(s))) : null;
+                    } catch (NumberFormatException e) {
+                        return s;
+                    }
+                };
             case mult:
-                return null; // binary operators
+                return s -> {
+                    try {
+                        return immediate != null ? immediate.multiply(new BigDecimal(String.valueOf(s))) : null;
+                    } catch (NumberFormatException e) {
+                        return s;
+                    }
+                };
             case div:
+                return s -> {
+                    try {
+                        return immediate != null ? (new BigDecimal(String.valueOf(s))).divide(immediate, BigDecimal.ROUND_HALF_DOWN) : s;
+                    } catch (NumberFormatException e) {
+                        return s;
+                    }
+                };
             case minus:
+                return s -> {
+                    try {
+                        return immediate != null ? (new BigDecimal(String.valueOf(s))).subtract(immediate) : (new BigDecimal(String.valueOf(s))).multiply(new BigDecimal(-1));
+                    } catch (NumberFormatException e) {
+                        return s;
+                    }
+                };
             case pow:
+                return s -> {
+                    try {
+                        return immediate != null ? (new BigDecimal(String.valueOf(s))).pow(immediate.intValue()) : s;
+                    } catch (NumberFormatException e) {
+                        return s;
+                    }
+                };
 
             default:
                 throw new YException("METHOD STUB! \"" + this + "\" NOT YET IMPLEMENTED");
@@ -128,18 +164,15 @@ public enum Operator {
                 };
             case mult:
                 return (a, b) -> {
-                try {
-                    BigDecimal first = bigDecimalStringConverter.fromString(String.valueOf(a));
-                    BigDecimal second = bigDecimalStringConverter.fromString(String.valueOf(b));
+                    try {
+                        BigDecimal first = bigDecimalStringConverter.fromString(String.valueOf(a));
+                        BigDecimal second = bigDecimalStringConverter.fromString(String.valueOf(b));
 
-                    return first.multiply(second);
-                } catch (NumberFormatException e) {
-                    return a;
-                }
-            };
-            case pow:
-            case div:
-            case minus:
+                        return first.multiply(second);
+                    } catch (NumberFormatException e) {
+                        return a;
+                    }
+                };
             default:
                 throw new YException("METHOD STUB! \"" + this + "\" NOT YET IMPLEMENTED");
         }
@@ -210,5 +243,9 @@ public enum Operator {
             }
         }
         return "true";
+    }
+
+    public void setImmediate(BigDecimal immediate) {
+        this.immediate = immediate;
     }
 }
