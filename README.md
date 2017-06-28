@@ -3,8 +3,16 @@ YTho (*why though*) is a golfing language written as part of the Abstract Machin
 
 [![CircleCI](https://circleci.com/gh/pa-pi/why/tree/master.svg?style=svg)](https://circleci.com/gh/pa-pi/why/tree/master)
 
-## Special characters
-
+## Special characters:
+* **_**
+  * Explicitely Indicates the end of an immediate value
+* **[0-9]\+**
+  * immediate value, ends on first character that is NaN (except '.' - decimal point)
+* **(**
+  * starts parallel mode - all instructions afterwards are executed on the same set of inputs
+* **)**
+  * ends parallel mode (not required) - instructions afterwards are excuted on the updated set of inputs
+  
 ## Selectors:
 * **e**
   * Selects even indices
@@ -64,19 +72,19 @@ YTho (*why though*) is a golfing language written as part of the Abstract Machin
   * converts each element to its binary representation
 * **h**
   * converts each element to its hex representation
-* \+
-  * add/concat
-* \- 
-  * subtract
-* \*
-  * multiply
-* /
+* **\+**
+  * add / sum
+* **\-**
+  * minus / additive inverse 
+* **\***
+  * multiply / product
+* **/n**
   * divide
 * T
   * Adds milliseconds since epoch to storage
 * t
   * Adds the current date to storage
-*
+
   
 To come: Atbash alphabet(Atbash cypher)
 Possible changes: group commands

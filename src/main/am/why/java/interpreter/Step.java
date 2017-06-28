@@ -1,6 +1,8 @@
 package am.why.java.interpreter;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -8,15 +10,21 @@ import java.util.List;
  */
 public class Step {
     private List<Command> commands;
+    private HashMap<Integer, BigDecimal> immediates;
+    private HashMap<Integer, BigDecimal> values;
     private int size = 0;
     private boolean serial = true;
 
     public Step(List<Command> commands) {
         this.commands = commands;
+        this.values = new HashMap<>();
+        this.immediates = new HashMap<>();
     }
 
     public Step() {
         this.commands = new ArrayList<>();
+        this.values = new HashMap<>();
+        this.immediates = new HashMap<>();
     }
 
     public void addCommand(Command command) {
@@ -30,6 +38,16 @@ public class Step {
             size++;
         }
         commands.add(command);
+    }
+
+    public void addCommand(Command command, BigDecimal immediate, BigDecimal value) {
+        if (value != null) {
+            values.put(commands.size(), value);
+        }
+        if (immediate != null) {
+            immediates.put(commands.size(), immediate);
+        }
+        addCommand(command);
     }
 
     public List<Command> getCommands() {
@@ -69,4 +87,22 @@ public class Step {
     public void setSerial(boolean serial) {
         this.serial = serial;
     }
+
+    public BigDecimal getValue(Command current) {
+        return values.get(commands.indexOf(current));
+    }
+
+    public BigDecimal getImmediate(Command current) {
+        int idx = commands.indexOf(current);
+        return immediates.get(idx);
+    }
+
+    public BigDecimal getValue(Integer integer) {
+        return values.get(integer);
+    }
+
+    public BigDecimal getImmediate(Integer integer) {
+        return immediates.get(integer);
+    }
+
 }
