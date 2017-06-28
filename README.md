@@ -67,7 +67,7 @@ YTho (*why though*) is a golfing language written as part of the Abstract Machin
 * \+
   * add/concat
 * \- 
-  * subtract
+  * additive inverse
 * \*
   * multiply
 * /

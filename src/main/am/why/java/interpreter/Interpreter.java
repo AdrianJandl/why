@@ -9,7 +9,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.BinaryOperator;
+import java.util.function.Function;
 import java.util.function.Predicate;
+import java.util.function.UnaryOperator;
 
 /**
  * Created by Adrian on 12-Apr-17.
@@ -56,7 +59,7 @@ public class Interpreter {
         }
         for (Map.Entry<Command, List<Integer>> entry : commandListMap.entrySet()) {
             for (Integer integer : entry.getValue()) {
-                storage.getArray()[integer] = String.valueOf(entry.getKey().getOperator().getUnaryOperator().apply(storage.getArray()[integer]));
+                storage.getArray()[integer] = applyOperator(entry.getKey().getOperator(), storage.getArray()[integer], null);
             }
         }
         if (debug) {
@@ -87,7 +90,7 @@ public class Interpreter {
     private void doIndexOperator(Predicate<Object> predicate, Operator operator) {
         for (int i = 0; i < storage.getArray().length; i++) {
             if (predicate.test(i)) {
-                storage.getArray()[i] = String.valueOf(operator.getUnaryOperator().apply(storage.getArray()[i]));
+                storage.getArray()[i] = applyOperator(operator, storage.getArray()[i], null);
             }
         }
     }
@@ -96,10 +99,28 @@ public class Interpreter {
     private void doOperator(Predicate<Object> predicate, Operator operator) {
         for (int i = 0; i < storage.getArray().length; i++) {
             if (predicate.test(storage.getArray()[i])) {
-                storage.getArray()[i] = String.valueOf(operator.getUnaryOperator().apply(storage.getArray()[i]));
+                storage.getArray()[i] = applyOperator(operator, storage.getArray()[i], null);
             }
         }
     }
+
+    private String applyOperator(Operator op, String data1, String data2){
+        Function func = op.getUnaryOperator();
+        if (func != null) {
+            return applyOperator((UnaryOperator) func, data1);
+        } else {
+            return applyOperator(op.getBinaryOperator(), data1, data2);
+        }
+    }
+
+    private String applyOperator(UnaryOperator<Object> op, String data) {
+        return String.valueOf(op.apply(data));
+    }
+
+    private String applyOperator(BinaryOperator<Object> op, String data1, String optional){
+        return String.valueOf(op.apply(data1, optional));
+    }
+
 
     public Storage getStorage() {
         return storage;
