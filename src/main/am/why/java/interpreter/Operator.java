@@ -98,7 +98,6 @@ public enum Operator {
                         return i;
                     }
                 };
-            //return s -> ""; //FIXME do we change datatype from int to Double/BigDecimal? edit 5.5. mkrejci -> we definitely should
             case h:
                 return this::getHexRepresentation;
             case plus:

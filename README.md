@@ -59,9 +59,9 @@ YTho (*why though*) is a golfing language written as part of the Abstract Machin
   * Converts the selected elements to lowercase if they are strings
 * C
   * Changes the case of each letter in the selected elements
-* f
+* **f**
   * floor
-* c
+* **c**
   * ceil
 * **r**
   * reverse (on strings, treats integers as strings)
@@ -80,15 +80,7 @@ YTho (*why though*) is a golfing language written as part of the Abstract Machin
   * multiply / product
 * **/n**
   * divide
-* T
+* **T**
   * Adds milliseconds since epoch to storage
-* t
+* **t**
   * Adds the current date to storage
-
-  
-To come: Atbash alphabet(Atbash cypher)
-Possible changes: group commands
-  
-- [ ] Loops
-- [ ] Syntax error checking
-- [ ] Literals (Immediate mode)

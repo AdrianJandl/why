@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
+import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertEquals;
 
 
@@ -44,5 +45,21 @@ public class ControlSelectorTest {
         predicate = controlSelector.modifySelector(selector.getPredicate());
         List<Object> intResult = ints.stream().filter(predicate).collect(Collectors.toList());
         assertEquals(2, intResult.size());
+    }
+
+
+    @Test
+    public void test_l() {
+        assertTrue(false);
+    }
+
+    @Test
+    public void test_L() {
+        assertTrue(false);
+    }
+
+    @Test
+    public void test_s() {
+        assertTrue(false);
     }
 }
