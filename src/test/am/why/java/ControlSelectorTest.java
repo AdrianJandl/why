@@ -4,6 +4,7 @@ import am.why.java.interpreter.ControlSelector;
 import am.why.java.interpreter.Selector;
 import org.junit.Test;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
@@ -20,8 +21,9 @@ public class ControlSelectorTest {
     @Test
     public void testAllButSelector() {
         ControlSelector controlSelector = ControlSelector.exclamation;
-        Selector selector = Selector._0; //select all
-        Predicate<Object> predicate = controlSelector.modifySelector(selector.getPredicate());
+        Selector selector = Selector.number; //select all
+
+        Predicate<Object> predicate = controlSelector.modifySelector(s -> true);
         List<Object> test = new ArrayList<>();
         test.add("Hello");
         test.add("World!");

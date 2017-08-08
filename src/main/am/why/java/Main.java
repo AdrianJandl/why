@@ -17,10 +17,10 @@ public class Main {
             throw new IllegalArgumentException("Usage: args[0] program code, args[1] input.");
         }
         YScanner yScanner = new YScanner(args[0]);
-        if (yScanner.checkSyntax()) {
-            Interpreter interpreter = new Interpreter(yScanner, args[1], isDebug);
-            interpreter.interpret();
-        }
+        yScanner.newParse();
+        Interpreter interpreter = new Interpreter(yScanner, args[1], isDebug);
+        interpreter.interpret();
+
 
     }
 }
