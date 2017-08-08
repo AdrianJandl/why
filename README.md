@@ -57,7 +57,7 @@ YTho (*why though*) is a golfing language written as part of the Abstract Machin
   * Converts the selected elements to uppercase if they are strings
 * **l**
   * Converts the selected elements to lowercase if they are strings
-* C
+* **C**
   * Changes the case of each letter in the selected elements
 * **f**
   * floor
