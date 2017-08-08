@@ -17,6 +17,12 @@ public enum Selector {
         this.aChar = aChar;
     }
 
+    /**
+     * Converts a {@link Character} to the corresponding {@link Selector}.
+     *
+     * @param character the {@link Character} to be converted.
+     * @return The {@link Selector} instance to the corresponding input character.
+     */
     public static Selector from(Character character) {
         for (Selector selector : Selector.values()) {
             if (selector.aChar == character) {

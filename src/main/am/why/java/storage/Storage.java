@@ -1,9 +1,12 @@
 package am.why.java.storage;
 
+import am.why.java.interpreter.Interpreter;
+import am.why.java.interpreter.Step;
+
 import java.util.Arrays;
 
 /**
- * Created by Adrian on 12-Apr-17.
+ * This class holds the input array as given and is updated after each {@link Step} by the {@link Interpreter}.
  */
 public class Storage {
     private String[] array;

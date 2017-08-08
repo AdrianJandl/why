@@ -16,9 +16,8 @@ public class Step {
     private boolean serial = true;
 
     public Step(List<Command> commands) {
+        this();
         this.commands = commands;
-        this.values = new HashMap<>();
-        this.immediates = new HashMap<>();
     }
 
     public Step() {
@@ -27,6 +26,11 @@ public class Step {
         this.immediates = new HashMap<>();
     }
 
+    /**
+     * Adds a {@link Command} to the {@link Step} instance and increments the size of the {@link Step} according to the size of the {@link Command}.
+     *
+     * @param command the {@link Command} to be added.
+     */
     public void addCommand(Command command) {
         if (command.getControlSelector() != null) {
             size++;
@@ -40,6 +44,14 @@ public class Step {
         commands.add(command);
     }
 
+    /**
+     * Adds a {@link Command} to the {@link Step} instance and increments the size of the {@link Step} according to the size of the {@link Command}.
+     * Additionally adds the <code>immediate</code> and <code>value</code> {@link BigDecimal}s to the {@link Step} instance.
+     *
+     * @param command   the {@link Command} to be added.
+     * @param immediate the <code>immediate</code> to be added.
+     * @param value     the <code>value</code> to be added.
+     */
     public void addCommand(Command command, BigDecimal immediate, BigDecimal value) {
         if (value != null) {
             values.put(commands.size(), value);

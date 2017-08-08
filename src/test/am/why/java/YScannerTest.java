@@ -22,8 +22,8 @@ public class YScannerTest {
     @Test
     public void testGetNextCommand() {
         YScanner x = new YScanner("oSeI");
-        x.newParse();
-        x.newParse();
+        x.parse();
+        x.parse();
         Step firstStep = x.getNextStep();
         assertEquals(2, firstStep.getCommands().size());
         Command first = firstStep.getCommands().get(0);
@@ -38,7 +38,7 @@ public class YScannerTest {
     public void strictFollowedByForbiddenSelector() {
         String input = "seI";
         YScanner yScanner = new YScanner(input);
-        yScanner.newParse();
+        yScanner.parse();
     }
 
     @Test
@@ -58,7 +58,7 @@ public class YScannerTest {
     public void lengthShorterThanFollowedByForbidden() {
         String input = "lnS";
         YScanner yScanner = new YScanner(input);
-        yScanner.newParse();
+        yScanner.parse();
     }
 
     @Test
@@ -71,14 +71,14 @@ public class YScannerTest {
     public void lengthLongerThanFollowedByForbidden() {
         String input = "LNS";
         YScanner yScanner = new YScanner(input);
-        yScanner.newParse();
+        yScanner.parse();
     }
 
     @Test
     public void testStepsClosedBrackets() {
         String input = "(OI(OS))";
         YScanner yScanner = new YScanner(input);
-        yScanner.newParse();
+        yScanner.parse();
         Step first = yScanner.getNextStep();
         Step firstExpected = new Step();
         firstExpected.addCommand(new Command(null, Selector.O, Operator.S));
@@ -93,7 +93,7 @@ public class YScannerTest {
     public void testStepsOpenedBrackets() {
         String input = "(OI(OS";
         YScanner yScanner = new YScanner(input);
-        yScanner.newParse();
+        yScanner.parse();
         Step first = yScanner.getNextStep();
         Step firstExpected = new Step();
         firstExpected.addCommand(new Command(null, Selector.O, Operator.S));
@@ -108,7 +108,7 @@ public class YScannerTest {
     public void testImmediateSetInOperator() {
         String input = "o+14.523e*33";
         YScanner yScanner = new YScanner(input);
-        yScanner.newParse();
+        yScanner.parse();
 
         Step step = yScanner.getNextStep();
 
@@ -129,7 +129,7 @@ public class YScannerTest {
     public void testImmediateExplicitEnding() {
         String input = "o+14.523_2*33";
         YScanner yScanner = new YScanner(input);
-        yScanner.newParse();
+        yScanner.parse();
 
         Step step = yScanner.getNextStep();
 
@@ -152,7 +152,7 @@ public class YScannerTest {
     public void testValueSetInSelector() {
         String input = "2S";
         YScanner yScanner = new YScanner(input);
-        yScanner.newParse();
+        yScanner.parse();
 
         Step step = yScanner.getNextStep();
 

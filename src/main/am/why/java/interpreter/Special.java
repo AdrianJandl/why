@@ -12,6 +12,12 @@ public enum Special {
         this.aChar = aChar;
     }
 
+    /**
+     * Converts a {@link Character} to the corresponding {@link Special}.
+     *
+     * @param character the {@link Character} to be converted.
+     * @return The {@link Special} instance to the corresponding input character.
+     */
     public static Special from(Character character) {
         for (Special special : Special.values()) {
             if (special.aChar == character) {

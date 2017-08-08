@@ -22,6 +22,12 @@ public enum Operator {
         this.aChar = aChar;
     }
 
+    /**
+     * Converts a {@link Character} to the corresponding {@link Operator}.
+     *
+     * @param character the {@link Character} to be converted.
+     * @return The {@link Operator} instance to the corresponding input character.
+     */
     public static Operator from(Character character) {
         for (Operator selector : Operator.values()) {
             if (selector.aChar == character) {
@@ -159,15 +165,15 @@ public enum Operator {
                 };
             case pow:
                 return (a, b) -> {
-                try {
-                    BigDecimal first = bigDecimalStringConverter.fromString(String.valueOf(a));
-                    BigDecimal second = bigDecimalStringConverter.fromString(String.valueOf(b));
+                    try {
+                        BigDecimal first = bigDecimalStringConverter.fromString(String.valueOf(a));
+                        BigDecimal second = bigDecimalStringConverter.fromString(String.valueOf(b));
 
-                    return first.pow(second.intValue());
-                } catch (NumberFormatException e) {
-                    return a;
-                }
-            };
+                        return first.pow(second.intValue());
+                    } catch (NumberFormatException e) {
+                        return a;
+                    }
+                };
             default:
                 throw new YException("METHOD STUB! \"" + this + "\" NOT YET IMPLEMENTED");
         }

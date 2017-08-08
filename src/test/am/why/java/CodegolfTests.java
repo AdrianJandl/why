@@ -15,7 +15,7 @@ public class CodegolfTests {
 	public void swapTheParity() { //https://codegolf.stackexchange.com/questions/118819/swap-the-parity
 		YScanner yScanner = new YScanner("(EDOI");
 		//assertEquals(true, yScanner.checkSyntax());
-		yScanner.newParse();
+		yScanner.parse();
 		Interpreter interpreter = new Interpreter(yScanner, "1,2,3,4,5,6,7,8,313,314", true);
 		interpreter.interpret();
 		String result[] = {"2", "1", "4", "3", "6", "5", "8", "7", "314", "313"};
@@ -35,7 +35,7 @@ public class CodegolfTests {
 	public void isThisNumberAPrime() {
 		//https://codegolf.stackexchange.com/questions/57617/is-this-number-a-prime?noredirect=1&lq=1
 		YScanner yScanner = new YScanner("0p");
-		yScanner.newParse();
+		yScanner.parse();
 		Interpreter interpreter = new Interpreter(yScanner, "1,2,3,4,5,6,7,8,9,11,13,7919", true);
 		interpreter.interpret();
 		String result[] = {"false", "true", "true", "false", "true", "false", "true", "false", "false", "true", "true", "true"};

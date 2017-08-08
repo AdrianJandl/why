@@ -12,19 +12,23 @@ import java.util.*;
  */
 public class YScanner {
     private String program;
-    private boolean syntaxChecked = false;
     private List<Step> steps;
     private Iterator<Step> stepIterator;
-    private Queue<BigDecimal> numberQueue;
-    private int bracketCounter;
 
+    /**
+     * The class responsible for converting the <code>program</code> parameter to a {@link List} of {@link Step}s.
+     *
+     * @param program the input program
+     */
     public YScanner(String program) {
         this.program = program;
         this.steps = new ArrayList<>();
-        this.bracketCounter = 0;
     }
 
-    public void newParse() {
+    /**
+     * Parses the input program.
+     */
+    public void parse() {
         Step step = startScanner(0);
         if (step != null && !(step.getCommands().size() == 0)) {
             steps.add(step);
@@ -32,6 +36,12 @@ public class YScanner {
         stepIterator = steps.iterator();
     }
 
+    /**
+     * Recursively builds the {@link List} of {@link Step} objects.
+     *
+     * @param start the index in the program string where this recursion depth starts.
+     * @return The next {@link Step} object.
+     */
     private Step startScanner(int start) {
         if (start >= program.length()) {
             return null;
@@ -48,7 +58,6 @@ public class YScanner {
                     if (step != null) {
                         step.setSerial(false);
                         steps.add(step);
-                        //i += step.getSize();
                         for (Step tmp : steps) {
                             i += tmp.getSize();
                         }
@@ -105,8 +114,6 @@ public class YScanner {
                         i++;
                     }
                 }
-                //steps.add(new Command(controlSelector, selector, operators));		// FIXME what should this line do?
-
                 i--;
 
                 current.addCommand(new Command(controlSelector, selector, operators), immediate, value);
@@ -147,6 +154,11 @@ public class YScanner {
         return value;
     }
 
+    /**
+     * Returns the next {@link Step} to be executed.
+     *
+     * @return the next {@link Step}
+     */
     public Step getNextStep() {
         if (stepIterator.hasNext()) {
             return stepIterator.next();
@@ -154,6 +166,11 @@ public class YScanner {
         return null;
     }
 
+    /**
+     * Returns <code>true</code> if the underlying {@link Iterator} has more elements.
+     *
+     * @return true if the iteration has more elements.
+     */
     public boolean hasNext() {
         return stepIterator.hasNext();
     }

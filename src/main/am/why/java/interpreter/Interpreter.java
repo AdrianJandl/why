@@ -29,6 +29,9 @@ public class Interpreter {
         this.history = new ArrayList<>();
     }
 
+    /**
+     * Starts the interpreter.
+     */
     public void interpret() {
         while (yScanner.hasNext()) { //iterate over steps
             Step step = yScanner.getNextStep();
@@ -40,6 +43,11 @@ public class Interpreter {
         }
     }
 
+    /**
+     * Executes the {@link Step} in parallel mode.
+     *
+     * @param step the {@link Step} to be executed.
+     */
     private void doParallel(Step step) {
         Map<Command, List<Integer>> commandListMap = new HashMap<>();
         for (Command next : step.getCommands()) {
@@ -63,6 +71,11 @@ public class Interpreter {
         }
     }
 
+    /**
+     * Executes the {@link Step} in serial mode.
+     *
+     * @param step the {@link Step} to be executed.
+     */
     private void doSerial(Step step) {
         for (Command next : step.getCommands()) {
             //commands.add(next); //TODO history fix?
@@ -79,7 +92,7 @@ public class Interpreter {
                         BigDecimal value = step.getValue(next);
                         return value.compareTo(new BigDecimal(0)) == 0 || Integer.parseInt(String.valueOf(s)) % value.intValue() == 0;
                     };
-                    doOperator(next.getControlSelector() == null ?  predicate : next.getControlSelector().modifySelector(predicate), next.getOperator(), step.getImmediate(next));
+                    doOperator(next.getControlSelector() == null ? predicate : next.getControlSelector().modifySelector(predicate), next.getOperator(), step.getImmediate(next));
                     break;
                 default:
                     doOperator(next.getControlSelector() == null
@@ -90,6 +103,13 @@ public class Interpreter {
         }
     }
 
+    /**
+     * Executes the operator to be applied on the index of the {@link Storage}.
+     *
+     * @param predicate The {@link Predicate} to be tested.
+     * @param operator  The {@link Operator} to be applied.
+     * @param immediate An optional {@link BigDecimal} immediate value.
+     */
     private void doIndexOperator(Predicate<Object> predicate, Operator operator, BigDecimal immediate) {
         for (int i = 0; i < storage.getArray().length; i++) {
             if (predicate.test(i)) {
@@ -102,7 +122,13 @@ public class Interpreter {
         }
     }
 
-
+    /**
+     * Executes the operator to be applied on the value of the {@link Storage}.
+     *
+     * @param predicate The {@link Predicate} to be tested.
+     * @param operator  The {@link Operator} to be applied.
+     * @param immediate An optional {@link BigDecimal} immediate value.
+     */
     private void doOperator(Predicate<Object> predicate, Operator operator, BigDecimal immediate) {
         for (int i = 0; i < storage.getArray().length; i++) {
             if (predicate.test(storage.getArray()[i])) {
@@ -115,7 +141,15 @@ public class Interpreter {
         }
     }
 
-    private String applyOperator(Operator op, String data1, String data2){
+    /**
+     * Applies the operator on the supplied data.
+     *
+     * @param op    The {@link Operator} to be applied.
+     * @param data1 The data to be operated on.
+     * @param data2 Optional data parameter for {@link BinaryOperator}s.
+     * @return The data after the {@link Operator} has been applied.
+     */
+    private String applyOperator(Operator op, String data1, String data2) {
         Function func = op.getUnaryOperator();
         if (func != null) {
             return applyOperator((UnaryOperator) func, data1);
@@ -124,11 +158,26 @@ public class Interpreter {
         }
     }
 
+    /**
+     * Applies the operator on the supplied data.
+     *
+     * @param op   The {@link Operator} to be applied.
+     * @param data The data to be operated on.
+     * @return The data after the {@link Operator} has been applied.
+     */
     private String applyOperator(UnaryOperator<Object> op, String data) {
         return String.valueOf(op.apply(data));
     }
 
-    private String applyOperator(BinaryOperator<Object> op, String data1, String optional){
+    /**
+     * Applies the operator on the supplied data.
+     *
+     * @param op       The {@link Operator} to be applied.
+     * @param data1    The data to be operated on.
+     * @param optional Optional data parameter for {@link BinaryOperator}s.
+     * @return The data after the {@link BinaryOperator} has been applied.
+     */
+    private String applyOperator(BinaryOperator<Object> op, String data1, String optional) {
         return String.valueOf(op.apply(data1, optional));
     }
 
