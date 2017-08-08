@@ -30,8 +30,6 @@ public class Interpreter {
     }
 
     public void interpret() {
-        boolean collect = false;
-        List<Command> commands = new ArrayList<>();
         while (yScanner.hasNext()) { //iterate over steps
             Step step = yScanner.getNextStep();
             if (step.isSerial()) {
