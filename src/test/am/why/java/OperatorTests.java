@@ -1,11 +1,14 @@
 package am.why.java;
 
-import am.why.java.interpreter.Operator;
+import am.why.java.interpreter.*;
+import am.why.java.scanner.YScanner;
 import org.junit.Test;
 
 import java.math.BigDecimal;
 
 import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 /**
  * Created by michi on 08/05/2017.
@@ -133,9 +136,21 @@ public class OperatorTests {
     }
 
     @Test
-    public void test_sum() {
-        // TODO implement sum
-        Object[] input = {13, 77, -15, "FOO", 4, "bAr"};
-        
+    public void test_aggregate() {
+        YScanner yScanner = mock(YScanner.class);
+
+        Selector selector = Selector.number;
+        Command command = new Command(null, selector, Operator.plus);
+        Step step = new Step();
+        step.addCommand(command, null, new BigDecimal(0));
+        when(yScanner.getNextStep()).thenReturn(step);
+        when(yScanner.hasNext()).thenReturn(true, false);
+        Interpreter interpreter = new Interpreter(yScanner, "13, 77, -15, FOO, 4, bAr", false);
+        interpreter.interpret();
+        String results[] = {"79"};
+        for (int i = 0; i < interpreter.getStorage().getArray().length; i++) {
+            assertEquals(results[i], interpreter.getStorage().getArray()[i]);
+        }
+
     }
 }

@@ -32,7 +32,6 @@ public class InterpreterTest {
         List<String> list = new ArrayList<>();
         list.add("[2, 2, 4, 4]");
         list.add("[3, 2, 5, 4]");
-        //assertEquals(list, interpreter.getHistory()); TODO fix history in interpreter
     }
 
     @Test

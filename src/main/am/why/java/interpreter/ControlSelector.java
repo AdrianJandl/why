@@ -2,6 +2,7 @@ package am.why.java.interpreter;
 
 import am.why.java.exception.YException;
 
+import java.math.BigDecimal;
 import java.util.function.Predicate;
 
 /**

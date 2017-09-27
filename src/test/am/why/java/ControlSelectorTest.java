@@ -47,19 +47,4 @@ public class ControlSelectorTest {
         assertEquals(2, intResult.size());
     }
 
-
-    @Test
-    public void test_l() {
-        assertTrue(false);
-    }
-
-    @Test
-    public void test_L() {
-        assertTrue(false);
-    }
-
-    @Test
-    public void test_s() {
-        assertTrue(false);
-    }
 }

@@ -11,7 +11,7 @@ public class Main {
      * @param args args[0] program code, args[1] input
      */
     public static void main(String[] args) {
-        //TODO debug flag set on interpreter
+        // sets debug flag on interpreter
         boolean isDebug = false;
         if (args.length != 2) {
             throw new IllegalArgumentException("Usage: args[0] program code, args[1] input.");

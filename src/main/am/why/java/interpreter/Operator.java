@@ -122,6 +122,9 @@ public enum Operator {
             case plus:
                 return (a, b) -> {
                     try {
+                        if (String.valueOf(a).isEmpty()){
+                            a = "0";
+                        }
                         BigDecimal first = bigDecimalStringConverter.fromString(String.valueOf(a));
                         BigDecimal second = bigDecimalStringConverter.fromString(String.valueOf(b));
 
@@ -133,6 +136,9 @@ public enum Operator {
             case mult:
                 return (a, b) -> {
                     try {
+                        if (String.valueOf(a).isEmpty()){
+                            a = "1";
+                        }
                         BigDecimal first = bigDecimalStringConverter.fromString(String.valueOf(a));
                         BigDecimal second = bigDecimalStringConverter.fromString(String.valueOf(b));
 
@@ -144,6 +150,9 @@ public enum Operator {
             case div:
                 return (a, b) -> {
                     try {
+                        if (String.valueOf(a).isEmpty()){
+                            a = "1";
+                        }
                         BigDecimal first = bigDecimalStringConverter.fromString(String.valueOf(a));
                         BigDecimal second = bigDecimalStringConverter.fromString(String.valueOf(b));
 
@@ -155,6 +164,9 @@ public enum Operator {
             case minus:
                 return (a, b) -> {
                     try {
+                        if (String.valueOf(a).isEmpty()){
+                            a = "0";
+                        }
                         BigDecimal first = bigDecimalStringConverter.fromString(String.valueOf(a));
                         BigDecimal second = bigDecimalStringConverter.fromString(String.valueOf(b));
 
@@ -166,6 +178,9 @@ public enum Operator {
             case pow:
                 return (a, b) -> {
                     try {
+                        if (String.valueOf(a).isEmpty()){
+                            a = "1";
+                        }
                         BigDecimal first = bigDecimalStringConverter.fromString(String.valueOf(a));
                         BigDecimal second = bigDecimalStringConverter.fromString(String.valueOf(b));
 

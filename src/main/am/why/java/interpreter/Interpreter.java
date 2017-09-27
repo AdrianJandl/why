@@ -1,6 +1,7 @@
 package am.why.java.interpreter;
 
 
+import am.why.java.exception.YException;
 import am.why.java.input.InputConverter;
 import am.why.java.scanner.YScanner;
 import am.why.java.storage.Storage;
@@ -10,7 +11,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.function.*;
+import java.util.function.BinaryOperator;
+import java.util.function.Function;
+import java.util.function.Predicate;
+import java.util.function.UnaryOperator;
 
 /**
  * Created by Adrian on 12-Apr-17.
@@ -51,7 +55,6 @@ public class Interpreter {
     private void doParallel(Step step) {
         Map<Command, List<Integer>> commandListMap = new HashMap<>();
         for (Command next : step.getCommands()) {
-            //commands.add(next); //TODO history fix?
 
             List<Integer> indices = new ArrayList<>();
             for (int i = 0; i < storage.getArray().length; i++) {
@@ -78,7 +81,6 @@ public class Interpreter {
      */
     private void doSerial(Step step) {
         for (Command next : step.getCommands()) {
-            //commands.add(next); //TODO history fix?
             switch (next.getSelector()) {
                 case o:
                 case e:
@@ -135,7 +137,16 @@ public class Interpreter {
                 if (immediate != null) {
                     storage.getArray()[i] = applyOperator(operator, storage.getArray()[i], immediate.toPlainString());
                 } else {
-                    storage.getArray()[i] = applyOperator(operator, storage.getArray()[i], null);       // TODO add support for aggregates
+                    try {
+                        storage.getArray()[i] = applyOperator(operator, storage.getArray()[i], null);
+                    } catch (YException e) {
+
+                        String aggregate = "";
+                        for (int j = 0; j < storage.getArray().length; j++) {
+                            aggregate = applyOperator(operator, aggregate, storage.getArray()[j]);
+                        }
+                        storage.setArray(new String[]{aggregate});
+                    }
                 }
             }
         }
@@ -153,6 +164,8 @@ public class Interpreter {
         Function func = op.getUnaryOperator();
         if (func != null) {
             return applyOperator((UnaryOperator) func, data1);
+        } else if (data2 == null) {
+            throw new YException("data2 is null");
         } else {
             return applyOperator(op.getBinaryOperator(), data1, data2);
         }

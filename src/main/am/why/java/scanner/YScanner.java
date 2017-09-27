@@ -63,7 +63,6 @@ public class YScanner {
                         }
                     }
                 }
-                //TODO do we need the third condition? more importantly: what does it do???
                 if (special == Special.CLOSED_BRACKET || i + 1 >= a.length || Special.from(a[i + 1]) == Special.CLOSED_BRACKET) {
                     return current;
                 }
@@ -122,7 +121,7 @@ public class YScanner {
                 throw new YException("Syntax error at index [" + i + "] in \"" + program + "\"");
             }
         }
-        return current; //TODO does this mean the bracket wasn't closed?
+        return current;
     }
 
     private BigDecimal readImmediate(char[] a, int i) {
